@@ -19,6 +19,7 @@ g1 = sns.catplot(
     aspect=4,errorbar=None
 )
 g1.set(xlabel="Month", ylabel="Amount", title='MoM Expense by Squad')
+g1.update_traces(marker_color='#264653')
 
 st.pyplot(g1)
 
