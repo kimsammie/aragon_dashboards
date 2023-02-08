@@ -25,7 +25,7 @@ g.set(xlabel="Month", ylabel="Amount", title='MoM Expense by Squad')
 # fig = plt.figure(figsize=(10, 4))
 # sns.countplot(x="class", data=titanic)
 
-st.plt(g)
+st.pyplot(g)
     
 df_=df[['Squad', 'Amount']].copy()
 # data=df_['Amount']
