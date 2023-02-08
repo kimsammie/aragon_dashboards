@@ -10,11 +10,11 @@ st.title("Operating Expense Summary by Squad")
 df = pd.read_csv('Aragon_financial_simple.csv')
 
 # bar chart - MoM Expense by Squad
-fig = plt.figure(figsize=(20, 8))
+fig = plt.figure(figsize=(10, 4))
 g = sns.catplot(
     data=df, x="Month", y="Amount", hue="Squad", kind="bar",
     sharex=False, margin_titles=True,
-    aspect=4,ci=None
+    aspect=4,errorbar=None
 )
 g.set(xlabel="Month", ylabel="Amount", title='MoM Expense by Squad')
 
