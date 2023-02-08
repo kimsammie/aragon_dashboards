@@ -37,11 +37,14 @@ labels = df_['Squad'].unique().tolist()
 palette_color = sns.color_palette('pastel')
   
 # plotting data on chart
-plt.pie(data, labels=labels, colors=palette_color, autopct='%.0f%%')
+pie = plt.pie(data, labels=labels, colors=palette_color, autopct='%.0f%%')
 
-plt.title("Expense Breakdown by Squad")
+pie = plt.title("Expense Breakdown by Squad")
          
 # displaying chart
 plt.show()
+
+st.pyplot(pie)
+    
 
 st.write(df)
