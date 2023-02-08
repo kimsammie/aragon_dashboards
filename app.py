@@ -20,7 +20,7 @@ g1 = sns.catplot(
 )
 g1.set(xlabel="Month", ylabel="Amount", title='MoM Expense by Squad')
 
-st.pyplot(g1)
+st.pyplot(g1, use_container_width=True)
 
 
 # copy data for the pie chart    
@@ -32,6 +32,6 @@ palette_color = sns.color_palette('pastel')
 ax1.pie(data, labels=labels, autopct='%1.1f%%',startangle=90, colors=palette_color)
 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
-st.pyplot(g2)
+st.pyplot(g2, use_container_width=True)
   
 st.write(df)
