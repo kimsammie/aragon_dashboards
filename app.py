@@ -23,7 +23,7 @@ def write():
         unsafe_allow_html=True,
     )
     df = pd.read_csv('Aragon financial simple.csv')
-
+    st.write("Number of Topics:", df)
     st.sidebar.write(
         "[Source Code](https://github.com/kimsammie/Aragon_Discord_Metrics)"
     )
