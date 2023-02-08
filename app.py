@@ -12,6 +12,7 @@ st.write(f"Hello {name}!")
 df = pd.read_csv('Aragon_financial_simple.csv')
 
 with sns.axes_style('white'):
+    fig = plt.figure(figsize=(10, 4))
     g = sns.catplot(
         data=df, x="Month", y="Amount", hue="Squad", kind="bar",
         sharex=False, margin_titles=True,
@@ -19,6 +20,13 @@ with sns.axes_style('white'):
     )
     g.set(xlabel="Month", ylabel="Amount", title='MoM Expense by Squad')
 
+# titanic = sns.load_dataset("titanic")
+
+# fig = plt.figure(figsize=(10, 4))
+# sns.countplot(x="class", data=titanic)
+
+st.pyplot(fig)
+    
 df_=df[['Squad', 'Amount']].copy()
 # data=df_['Amount']
 data=df_.groupby(['Squad']).sum()['Amount']
