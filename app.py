@@ -9,12 +9,14 @@ st.title("Operating Expense Summary by Squad")
 # load static file for now
 df = pd.read_csv('Aragon_financial_simple.csv')
 
+palette_color = sns.color_palette('pastel')
+
 # bar chart - MoM Expense by Squad
 fig = plt.figure(figsize=(10, 4))
 g = sns.catplot(
     data=df, x="Month", y="Amount", hue="Squad", kind="bar",
     sharex=False, margin_titles=True,
-    aspect=4,ci=None
+    aspect=4,ci=None, colors=palette_color
 )
 g.set(xlabel="Month", ylabel="Amount", title='MoM Expense by Squad')
 
@@ -26,7 +28,7 @@ df_=df[['Squad', 'Amount']].copy()
 data=df_.groupby(['Squad']).sum()['Amount']
 labels = df_['Squad'].unique().tolist()
 fig1, ax1 = plt.subplots()
-palette_color = sns.color_palette('pastel')
+
 ax1.pie(data, labels=labels, autopct='%1.1f%%',startangle=90, colors=palette_color)
 ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
