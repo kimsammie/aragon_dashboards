@@ -25,7 +25,7 @@ with sns.axes_style('white'):
 # fig = plt.figure(figsize=(10, 4))
 # sns.countplot(x="class", data=titanic)
 
-st.pyplot(fig)
+    st.pyplot(fig)
     
 df_=df[['Squad', 'Amount']].copy()
 # data=df_['Amount']
