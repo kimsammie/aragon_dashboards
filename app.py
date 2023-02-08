@@ -9,7 +9,7 @@ name = st.text_input("Enter your name", '')
 st.write(f"Hello {name}!")
 # x = st.slider("Select an integer x", 0, 10, 1)
 # y = st.slider("Select an integer y", 0, 10, 1)
-df = pd.read_csv('Aragon financial simple.csv')
+df = pd.read_csv('Aragon_financial_simple.csv')
 
 with sns.axes_style('white'):
     g = sns.catplot(
