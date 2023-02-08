@@ -32,19 +32,29 @@ df_=df[['Squad', 'Amount']].copy()
 data=df_.groupby(['Squad']).sum()['Amount']
 
 labels = df_['Squad'].unique().tolist()
-  
-# define Seaborn color palette to use
-palette_color = sns.color_palette('pastel')
-  
-# plotting data on chart
-pie = plt.pie(data, labels=labels, colors=palette_color, autopct='%.0f%%')
 
-pie = plt.title("Expense Breakdown by Squad")
+# labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
+# sizes = [15, 30, 45, 10]
+# explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+
+fig1, ax1 = plt.subplots()
+ax1.pie(data, labels=labels, autopct='%1.1f%%',startangle=90)
+ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+st.pyplot(fig1)
+  
+# # define Seaborn color palette to use
+# palette_color = sns.color_palette('pastel')
+  
+# # plotting data on chart
+# pie = plt.pie(data, labels=labels, colors=palette_color, autopct='%.0f%%')
+
+# pie = plt.title("Expense Breakdown by Squad")
          
-# displaying chart
-plt.show()
+# # displaying chart
+# plt.show()
 
-st.pyplot(pie)
+# st.pyplot(pie)
     
 
 st.write(df)
