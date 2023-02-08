@@ -19,7 +19,7 @@ g1 = sns.catplot(
     aspect=4,errorbar=None
 )
 g1.set(xlabel="Month", ylabel="Amount", title='MoM Expense by Squad')
-g1.plt.figure(figsize=(10, 4))
+
 
 st.pyplot(g1)
 
