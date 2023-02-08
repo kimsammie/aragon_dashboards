@@ -18,5 +18,22 @@ with sns.axes_style('white'):
         aspect=4,ci=None
     )
     g.set(xlabel="Month", ylabel="Amount", title='MoM Expense by Squad')
-    
+
+df_=df[['Squad', 'Amount']].copy()
+# data=df_['Amount']
+data=df_.groupby(['Squad']).sum()['Amount']
+
+labels = df_['Squad'].unique().tolist()
+  
+# define Seaborn color palette to use
+palette_color = sns.color_palette('pastel')
+  
+# plotting data on chart
+plt.pie(data, labels=labels, colors=palette_color, autopct='%.0f%%')
+
+plt.title("Expense Breakdown by Squad")
+         
+# displaying chart
+plt.show()
+
 st.write(df)
