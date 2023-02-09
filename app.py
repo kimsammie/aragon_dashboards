@@ -34,8 +34,26 @@ with col2:
   col2.plotly_chart(fig, use_container_width=True)  
 
   
+# fig.update_layout(title_text="Hospital Handovers Completed in the Past 24 Hours",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
 
+# st.plotly_chart(fig, use_container_width=True)  
 
+# df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_usa_states.csv')
+
+fig = go.Figure(data=[go.Table(
+    header=dict(values=list(df.columns),
+                fill_color='paleturquoise',
+                align='left'),
+    cells=dict(values=[df.Squad, df.Category, df.Detail, df.Month, df.Amount],
+               fill_color='lavender',
+               align='left'))
+])
+
+fig.update_layout(title_text="Hospital Handovers Completed in the Past 24 Hours",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
+
+st.plotly_chart(fig, use_container_width=True)      
+
+# fig.show()
 
   
-st.write(df)
+# st.write(df)
