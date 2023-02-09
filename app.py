@@ -29,7 +29,8 @@ fig = px.histogram(df, x = 'Month', y='Amount', color="Squad", template = 'seabo
 # fig.show()
 fig.update_layout(title_text="MoM Expense by Squad",
                   title_x=0,margin= dict(l=0,r=10,b=10,t=30), yaxis_title="Amount", xaxis_title="Month")
-g1.plotly_chart(fig, use_container_width=True) 
+# g1.plotly_chart(fig, use_container_width=True) 
+g1.plotly_chart(fig) 
 
 
 # copy data for the pie chart    
