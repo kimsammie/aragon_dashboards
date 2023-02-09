@@ -18,7 +18,7 @@ with col1:
   # fig.show()
   fig.update_layout(title_text="MoM Expense by Squad",
                     title_x=0,margin= dict(l=0,r=10,b=10,t=30), yaxis_title="Amount", xaxis_title="Month")
-  g1.plotly_chart(fig, use_container_width=True) 
+  col1.plotly_chart(fig, use_container_width=True) 
 
 
 with col2:
@@ -36,12 +36,10 @@ with col2:
 
   # fig.update_layout(title_text="Predicted Number of Arrivals",title_x=0,margin= dict(l=0,r=10,b=10,t=30), yaxis_title=None, xaxis_title=None)
   fig.update_layout(title_text="Expense Breakdown by Squad")
-  g2.plotly_chart(fig, use_container_width=True)  
+  col2.plotly_chart(fig, use_container_width=True)  
 
   
-with col3:
-   st.header("An owl")
-   st.image("https://static.streamlit.io/examples/owl.jpg")
+
 
 # # bar chart - MoM Expense by Squad
 # fig = plt.figure(figsize=(10, 4))
