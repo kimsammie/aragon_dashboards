@@ -11,17 +11,21 @@ df = pd.read_csv('Aragon_financial_simple.csv')
 
 g1, g2 = st.columns((1,1))
 
-# bar chart - MoM Expense by Squad
-fig = plt.figure(figsize=(10, 4))
-g1 = sns.catplot(
-    data=df, x="Month", y="Amount", hue="Squad", kind="bar",
-    sharex=False, margin_titles=True,
-    aspect=4,errorbar=None
-)
-g1.set(xlabel="Month", ylabel="Amount", title='MoM Expense by Squad')
+# # bar chart - MoM Expense by Squad
+# fig = plt.figure(figsize=(10, 4))
+# g1 = sns.catplot(
+#     data=df, x="Month", y="Amount", hue="Squad", kind="bar",
+#     sharex=False, margin_titles=True,
+#     aspect=4,errorbar=None
+# )
+# g1.set(xlabel="Month", ylabel="Amount", title='MoM Expense by Squad')
 
 
-st.pyplot(g1)
+# st.pyplot(g1)
+
+fig = px.histogram(df, x = 'Month', y='Amount', color="Squad", template = 'seaborn', barmode='group')
+# fig.show()
+g1.plotly_chart(fig, use_container_width=True) 
 
 
 # copy data for the pie chart    
