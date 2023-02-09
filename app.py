@@ -40,7 +40,7 @@ labels = df_['Squad'].unique().tolist()
 
     
 # fig = px.bar(data, x = 'Arrived Destination Resolved', y='y', template = 'seaborn')
-fig = px.pie(data, values='Squad', names='labels', template = 'seaborn')
+fig = px.pie(df_, values=data, names=labels, template = 'seaborn')
 
 # fig.update_traces(marker_color='#7A9E9F')
 
