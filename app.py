@@ -15,9 +15,8 @@ col1, col2 = st.columns((2,1))
 
 with col1:
   fig = px.histogram(df, x = 'Month', y='Amount', color="Squad", template = 'seaborn', barmode='group')
-  # fig.show()
   fig.update_layout(title_text="MoM Expense by Squad",
-                    title_x=0,margin= dict(l=0,r=10,b=10,t=30), yaxis_title="Amount", xaxis_title="Month")
+                    title_x=0, yaxis_title="Amount", xaxis_title="Month")
   col1.plotly_chart(fig, use_container_width=True) 
 
 
