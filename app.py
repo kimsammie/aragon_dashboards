@@ -66,6 +66,6 @@ with tab4:
     
 with st.sidebar:
     add_radio = st.radio(
-        "Choose a shipping method",
-        ("Standard (5-15 days)", "Express (2-5 days)")
+        "Choose the time period",
+        ("Q4 2022", "Q3 2022")
     )
