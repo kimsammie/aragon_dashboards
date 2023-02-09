@@ -5,6 +5,7 @@ sns.set()
 import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly.graph_objects as go
+# https://plotly.com/python/table/
 
 st.set_page_config(layout="wide")
 
