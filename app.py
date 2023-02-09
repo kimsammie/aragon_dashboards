@@ -3,6 +3,8 @@ import pandas as pd
 import seaborn as sns
 sns.set()
 import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.graph_objects as go
 
 st.title("Operating Expense Summary by Squad")
 
