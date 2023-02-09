@@ -45,7 +45,7 @@ fig = px.pie(df_, values=data, names=labels, template = 'seaborn')
 # fig.update_traces(marker_color='#7A9E9F')
 
 # fig.update_layout(title_text="Predicted Number of Arrivals",title_x=0,margin= dict(l=0,r=10,b=10,t=30), yaxis_title=None, xaxis_title=None)
-
+fig.update_layout(title_text="Expense Breakdown by Squad")
 g2.plotly_chart(fig, use_container_width=True)  
     
     
