@@ -13,7 +13,7 @@ st.title("Operating Expense Summary by Squad")
 tab1, tab2, tab3, tab4 = st.tabs(["📈 OpEx", "Revenue", "Income Statement", "Balance Sheet"])
 
 with tab1:
-  st.header("A cat")
+  st.header("Operation Expenses")
 
   # load static file for now
   df = pd.read_csv('Aragon_financial_simple.csv')
