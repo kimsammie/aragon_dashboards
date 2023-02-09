@@ -10,7 +10,7 @@ st.set_page_config(layout="wide")
 
 st.title("Operating Expense Summary by Squad")
 
-tab1, tab2, tab3, tab4 = st.tabs(["OpEx", "Revenue", "Income Statement", "Balance Sheet"])
+tab1, tab2, tab3, tab4 = st.tabs(["📈 OpEx", "Revenue", "Income Statement", "Balance Sheet"])
 
 with tab1:
   st.header("A cat")
