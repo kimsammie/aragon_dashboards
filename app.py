@@ -36,11 +36,24 @@ g1.plotly_chart(fig, use_container_width=True)
 df_=df[['Squad', 'Amount']].copy()
 data=df_.groupby(['Squad']).sum()['Amount']
 labels = df_['Squad'].unique().tolist()
-g2, ax1 = plt.subplots()
-palette_color = sns.color_palette('pastel')
-ax1.pie(data, labels=labels, autopct='%1.1f%%',startangle=90, colors=palette_color)
-ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
-st.pyplot(g2)
+
+    
+# fig = px.bar(data, x = 'Arrived Destination Resolved', y='y', template = 'seaborn')
+fig = px.pie(data, values='Squad', names='labels', template = 'seaborn')
+
+# fig.update_traces(marker_color='#7A9E9F')
+
+# fig.update_layout(title_text="Predicted Number of Arrivals",title_x=0,margin= dict(l=0,r=10,b=10,t=30), yaxis_title=None, xaxis_title=None)
+
+g2.plotly_chart(fig, use_container_width=True)  
+    
+    
+# g2, ax1 = plt.subplots()
+# palette_color = sns.color_palette('pastel')
+# ax1.pie(data, labels=labels, autopct='%1.1f%%',startangle=90, colors=palette_color)
+# ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+# st.pyplot(g2)
   
 st.write(df)
