@@ -11,7 +11,7 @@ st.title("Operating Expense Summary by Squad")
 # load static file for now
 df = pd.read_csv('Aragon_financial_simple.csv')
 
-col1, col2 = st.columns((1,1))
+col1, col2 = st.columns((2,1))
 
 with col1:
   fig = px.histogram(df, x = 'Month', y='Amount', color="Squad", template = 'seaborn', barmode='group')
