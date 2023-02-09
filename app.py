@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly.graph_objects as go
 
+st.set_page_config(layout="wide")
+
 st.title("Operating Expense Summary by Squad")
 
 # load static file for now
