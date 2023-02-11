@@ -99,21 +99,13 @@ with tab2:
     fig.update_layout(title_text="Revenue Summary by Pod",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
     st.plotly_chart(fig, use_container_width=True)  
 
-    with col2:
-# #       rev_act_df
-# #       fig = px.histogram(rev_act_df, x = 'Month', y='Amount', color="Squad", template = 'seaborn', barmode='group')
-#       fig = px.histogram(rev_act_df, color="Source of Revenue", template = 'seaborn', barmode='group')
-#       fig.update_layout(title_text="Revenue Actual",
-#                         yaxis_title="Amount", xaxis_title="Month")
-#       col2.plotly_chart(fig, use_container_width=True) 
-#       st.write("coming soon")
-  
-      rev_df = pd.read_csv('aragon_revenue.csv')
+  with col2:
+    rev_df = pd.read_csv('aragon_revenue.csv')
 
-      fig = px.histogram(rev_df, x = 'Month', y='Amount', color="Source", template = 'seaborn', barmode='group')
-      fig.update_layout(title_text="Revenue Actual",
-                        yaxis_title="Amount", xaxis_title="Month")
-      col2.plotly_chart(fig, use_container_width=True) 
+    fig = px.histogram(rev_df, x = 'Month', y='Amount', color="Source", template = 'seaborn', barmode='group')
+    fig.update_layout(title_text="Revenue Actual",
+                      yaxis_title="Amount", xaxis_title="Month")
+    col2.plotly_chart(fig, use_container_width=True) 
 
    
   graph1, graph2, graph3 = st.columns((1,1,1))
