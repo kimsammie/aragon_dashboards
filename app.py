@@ -76,8 +76,9 @@ with tab2:
   col1, col2 = st.columns((1,1))
   # display raw data
   with col1:
+    headerlst = ["Source of Revenue"]+list(revenue_df.columns)
     fig = go.Figure(data=[go.Table(
-        header=dict(values=list([revenue_df.index, revenue_df.columns]),
+        header=dict(values=headerlst,
                     fill_color='tan',
                     align='left'),
         cells=dict(values=[revenue_df.index, revenue_df.Nov_22_Projected,revenue_df.Nov_22_Actual, revenue_df.Dec_22_Projected, revenue_df.Dec_22_Actual,
