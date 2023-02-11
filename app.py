@@ -72,10 +72,7 @@ with tab2:
   rev_proj_df.columns = ['Nov_22', 'Dec_22', 'Jan_23', 'Feb_23']
   rev_act_df = revenue_df[['Nov_22_Actual', 'Dec_22_Actual','Jan_23_Actual', 'Feb_23_Actual']]
   rev_act_df.columns = ['Nov_22', 'Dec_22', 'Jan_23', 'Feb_23']
-  prod_act = rev_act_df.iloc[0]
-  prod_proj = rev_proj_df.iloc[0]
-  prod_combined = pd.concat([prod_act, prod_proj], axis=1)
-  prod_combined.columns = ['Actual', 'Projected']
+
       
   col1, col2 = st.columns((1,1))
   # display raw data
@@ -100,7 +97,11 @@ with tab2:
   graph1, graph2, graph3 = st.columns((1,1,1))
   # display raw data
   with graph1:
-    prod = px.line(prod_combined)
+    prod_act = rev_act_df.iloc[0]
+    prod_proj = rev_proj_df.iloc[0]
+    prod_combined = pd.concat([prod_act, prod_proj], axis=1)
+    prod_combined.columns = ['Actual', 'Projected']
+    prod = px.line(prod_combined, template = 'seaborn')
 #       fig.show()
 #           fig = px.pie(df_, values=data, names=labels, template = 'seaborn')
 
@@ -108,7 +109,13 @@ with tab2:
     graph1.plotly_chart(prod, use_container_width=True) 
     
   with graph2:
-    st.write('coming soon')
+    serv_act = rev_act_df.iloc[1]
+    serv_proj = rev_proj_df.iloc[1]
+    serv_combined = pd.concat([serv_act, serv_proj], axis=1)
+    serv_combined.columns = ['Actual', 'Projected']
+    serv = px.line(serv_combined)
+    serv.update_layout(title_text="Service Revenue Trend")
+    graph2.plotly_chart(serv, use_container_width=True) 
       
   with graph3:
     st.write('coming soon')
