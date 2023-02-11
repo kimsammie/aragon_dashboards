@@ -62,7 +62,8 @@ with tab2:
                    [270000, 290000, 300000, 320000, 350000, 330000, 400000, 410000], 
                    [180000, 210000, 200000, 190000, 180000, 185000, 250000, 270000]], 
                   pod, month)
-#   revenue_df
+  revenue_df.index.name = "Source of Revenue"
+  
   rev_proj_df = revenue_df[['Nov_22_Projected', 'Dec_22_Projected','Jan_23_Projected', 'Feb_23_Projected']]
   rev_proj_df.columns = ['Nov_22', 'Dec_22', 'Jan_23', 'Feb_23']
   rev_act_df = revenue_df[['Nov_22_Actual', 'Dec_22_Actual','Jan_23_Actual', 'Feb_23_Actual']]
