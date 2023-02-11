@@ -43,10 +43,11 @@ with tab1:
   # display raw data
   fig = go.Figure(data=[go.Table(
       header=dict(values=list(df.columns),
-                  fill_color='tan',
+                  fill_color='#264653',
+                  font_color="white",
                   align='left'),
       cells=dict(values=[df.Squad, df.Category, df.Detail, df.Month, df.Amount],
-                 fill_color='ivory',
+                 fill_color='mintcream',
                  align='left'))
   ])
 
@@ -81,6 +82,7 @@ with tab2:
     fig = go.Figure(data=[go.Table(
         header=dict(values=headerlst,
                     fill_color='#264653',
+                    font_color="white",
                     align='left'),
         cells=dict(values=[revenue_df.index, revenue_df.Nov_22_Projected,revenue_df.Nov_22_Actual, revenue_df.Dec_22_Projected, revenue_df.Dec_22_Actual,
             revenue_df.Jan_23_Projected,revenue_df.Jan_23_Actual,revenue_df.Feb_23_Projected,revenue_df.Feb_23_Actual],
