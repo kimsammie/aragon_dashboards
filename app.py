@@ -56,8 +56,8 @@ with tab1:
 with tab2:
   st.header("Revenue")
   pod = ['Product Revenue', 'Services Revenue', 'Trading Revenue']
-  month = ['Nov 22 - Projected','Nov 22 - Actual', 'Dec 22 - Projected', 'Dec 22 - Actual',
-          'Jan 23 - Projected','Jan 23 - Actual','Feb 23 - Projected','Feb 23 - Actual']
+  month = ['Nov_22_Projected','Nov_22_Actual', 'Dec_22_Projected', 'Dec_22_Actual',
+          'Jan_23_Projected','Jan_23_Actual','Feb_23_Projected','Feb_23_Actual']
   revenue_df = pd.DataFrame([[530000, 550000, 600000, 550000, 750000, 620000, 830000, 730000], 
                    [270000, 290000, 300000, 320000, 350000, 330000, 400000, 410000], 
                    [180000, 210000, 200000, 190000, 180000, 185000, 250000, 270000]], 
@@ -69,8 +69,8 @@ with tab2:
       header=dict(values=list(revenue_df.columns),
                   fill_color='tan',
                   align='left'),
-      cells=dict(values=revenue_df.Nov 22 - Projected,revenue_df.Nov 22 - Actual, revenue_df.Dec 22 - Projected, revenue_df.Dec 22 - Actual,
-          revenue_df.Jan 23 - Projected,revenue_df.Jan 23 - Actual,revenue_df.Feb 23 - Projected,revenue_df.Feb 23 - Actual,
+      cells=dict(values=revenue_df.Nov_22_Projected,revenue_df.Nov_22_Actual, revenue_df.Dec_22_Projected, revenue_df.Dec_22_Actual,
+          revenue_df.Jan_23_Projected,revenue_df.Jan_23_Actual,revenue_df.Feb_23_Projected,revenue_df.Feb_23_Actual,
                  fill_color='ivory',
                  align='left'))
   ])
