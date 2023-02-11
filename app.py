@@ -64,17 +64,18 @@ with tab2:
                   pod, month)
   revenue_df
   
-    # display raw data
+  # display raw data
   fig = go.Figure(data=[go.Table(
       header=dict(values=list(revenue_df.columns),
                   fill_color='tan',
                   align='left'),
-      cells=dict(values=month,
+      cells=dict(values=revenue_df.Nov 22 - Projected,revenue_df.Nov 22 - Actual, revenue_df.Dec 22 - Projected, revenue_df.Dec 22 - Actual,
+          revenue_df.Jan 23 - Projected,revenue_df.Jan 23 - Actual,revenue_df.Feb 23 - Projected,revenue_df.Feb 23 - Actual,
                  fill_color='ivory',
                  align='left'))
   ])
 
-  fig.update_layout(title_text="Raw Expense Data",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
+  fig.update_layout(title_text="Raw Revenue Data",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
   st.plotly_chart(fig, use_container_width=True)  
 
 with tab3:
