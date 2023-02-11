@@ -106,7 +106,14 @@ with tab2:
 #       fig.update_layout(title_text="Revenue Actual",
 #                         yaxis_title="Amount", xaxis_title="Month")
 #       col2.plotly_chart(fig, use_container_width=True) 
-      st.write("coming soon")
+#       st.write("coming soon")
+  
+      rev_df = pd.read_csv('aragon_revenue.csv')
+
+      fig = px.histogram(rev_df, x = 'Month', y='Amount', color="Source", template = 'seaborn', barmode='group')
+      fig.update_layout(title_text="Revenue Actual",
+                        yaxis_title="Amount", xaxis_title="Month")
+      col2.plotly_chart(fig, use_container_width=True) 
 
    
   graph1, graph2, graph3 = st.columns((1,1,1))
