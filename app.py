@@ -54,7 +54,13 @@ with tab1:
   st.plotly_chart(fig, use_container_width=True)      
 
 with tab2:
-   st.header("Revenue")
+  st.header("Revenue")
+  pod = ['Product Revenue', 'Services Revenue', 'Trading Revenue']
+  revenue_df = pd.DataFrame([[530000, 550000, 600000, 550000, 750000, 620000, 830000, 730000], 
+                   [270000, 290000, 300000, 320000, 350000, 330000, 400000, 410000], 
+                   [180000, 210000, 200000, 190000, 180000, 185000, 250000, 270000]], 
+                  pod, month)
+  revenue_df
 
 
 with tab3:
