@@ -43,7 +43,7 @@ with tab1:
   # display raw data
   fig = go.Figure(data=[go.Table(
       header=dict(values=list(df.columns),
-                  fill_color='brown',
+                  fill_color='tan',
                   align='left'),
       cells=dict(values=[df.Squad, df.Category, df.Detail, df.Month, df.Amount],
                  fill_color='ivory',
