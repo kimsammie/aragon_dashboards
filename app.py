@@ -11,6 +11,11 @@ st.set_page_config(layout="wide")
 
 st.title("Operating Expense Summary by Squad")
 
+st.write("A custom UI that displays components of expenses, trends and breakdowns all seamlessly off of files or data feeds.")
+st.write("")
+st.write("")
+st.write("")
+
 tab1, tab2, tab3, tab4 = st.tabs(["📈 OpEx", "Revenue", "Income Statement", "Balance Sheet"])
 
 with tab1:
