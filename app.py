@@ -102,7 +102,7 @@ with tab2:
     with col2:
 #       rev_act_df
 #       fig = px.histogram(rev_act_df, x = 'Month', y='Amount', color="Squad", template = 'seaborn', barmode='group')
-      fig = px.histogram(rev_act_df, template = 'seaborn', barmode='group')
+      fig = px.histogram(rev_act_df, color="Source of Revenue", template = 'seaborn', barmode='group')
       fig.update_layout(title_text="Revenue Actual",
                         yaxis_title="Amount", xaxis_title="Month")
       col2.plotly_chart(fig, use_container_width=True) 
