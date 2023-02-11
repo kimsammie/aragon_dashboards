@@ -89,12 +89,7 @@ with tab2:
     st.plotly_chart(fig, use_container_width=True)  
 
     with col2:
-      fig = px.line(prod_combined)
-#       fig.show()
-#           fig = px.pie(df_, values=data, names=labels, template = 'seaborn')
-
-      fig.update_layout(title_text="Product Revenue Trend")
-      col2.plotly_chart(fig, use_container_width=True) 
+      st.write('coming soon')
    
   graph1, graph2, graph3 = st.columns((1,1,1))
   # display raw data
