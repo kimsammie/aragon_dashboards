@@ -113,12 +113,18 @@ with tab2:
     serv_proj = rev_proj_df.iloc[1]
     serv_combined = pd.concat([serv_act, serv_proj], axis=1)
     serv_combined.columns = ['Actual', 'Projected']
-    serv = px.line(serv_combined)
+    serv = px.line(serv_combined, template = 'seaborn')
     serv.update_layout(title_text="Service Revenue Trend")
     graph2.plotly_chart(serv, use_container_width=True) 
       
   with graph3:
-    st.write('coming soon')
+    trade_act = rev_act_df.iloc[2]
+    trade_proj = rev_proj_df.iloc[2]
+    trade_combined = pd.concat([trade_act, trade_proj], axis=1)
+    trade_combined.columns = ['Actual', 'Projected']
+    trade = px.line(trade_combined, template = 'seaborn')
+    trade.update_layout(title_text="Trading Revenue Trend")
+    graph3.plotly_chart(trade, use_container_width=True) 
     
 with tab3:
    st.header("Income Statement")
