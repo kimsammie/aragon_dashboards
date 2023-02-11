@@ -90,8 +90,28 @@ with tab2:
 
     with col2:
       fig = px.line(prod_combined)
-      fig.show()
+#       fig.show()
+#           fig = px.pie(df_, values=data, names=labels, template = 'seaborn')
+
+      fig.update_layout(title_text="Product Revenue Trend")
+      col2.plotly_chart(fig, use_container_width=True) 
+   
+  graph1, graph2, graph3 = st.columns((1,1,1))
+  # display raw data
+  with graph1:
+    prod = px.line(prod_combined)
+#       fig.show()
+#           fig = px.pie(df_, values=data, names=labels, template = 'seaborn')
+
+    prod.update_layout(title_text="Product Revenue Trend")
+    graph1.plotly_chart(prod, use_container_width=True) 
+    
+  with graph2:
+    st.write('coming soon')
       
+  with graph3:
+    st.write('coming soon')
+    
 with tab3:
    st.header("Income Statement")
 
