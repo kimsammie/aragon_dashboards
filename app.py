@@ -55,6 +55,7 @@ with tab1:
 
 with tab2:
   st.header("Revenue")
+  st.write("Track projected vs. actual over time so users can revisit their assumptions or reassess their operating models for more accurate predictions in the future."
   pod = ['Product Revenue', 'Services Revenue', 'Trading Revenue']
   month = ['Nov_22_Projected','Nov_22_Actual', 'Dec_22_Projected', 'Dec_22_Actual',
           'Jan_23_Projected','Jan_23_Actual','Feb_23_Projected','Feb_23_Actual']
