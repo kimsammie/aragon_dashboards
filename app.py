@@ -9,18 +9,19 @@ import plotly.graph_objects as go
 
 st.set_page_config(layout="wide")
 
-st.title("Operating Expense Summary by Squad")
+st.title("Aragon Financial Reporting")
 
-st.write("A custom UI that displays components of expenses, trends and breakdowns all seamlessly off of files or data feeds.")
-st.write("")
 st.write("")
 st.write("")
 
 tab1, tab2, tab3, tab4 = st.tabs(["📈 OpEx", "Revenue", "Income Statement", "Balance Sheet"])
 
 with tab1:
-#   st.header("Operating Expenses")
-
+  st.header("Operating Expense")
+  st.write("A custom UI that displays components of expenses, trends and breakdowns all seamlessly off of files or data feeds.")
+  st.write("")
+  st.write("")
+  st.write("")
   # load static file for now
   df = pd.read_csv('Aragon_financial_simple.csv')
 
