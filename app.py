@@ -46,7 +46,7 @@ with tab1:
                   fill_color='paleturquoise',
                   align='left'),
       cells=dict(values=[df.Squad, df.Category, df.Detail, df.Month, df.Amount],
-                 fill_color='lavender',
+                 fill_color='tonexty',
                  align='left'))
   ])
 
