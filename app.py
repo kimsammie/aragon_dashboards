@@ -80,11 +80,11 @@ with tab2:
     headerlst = ["Source of Revenue"]+list(revenue_df.columns)
     fig = go.Figure(data=[go.Table(
         header=dict(values=headerlst,
-                    fill_color='tan',
+                    fill_color='#264653',
                     align='left'),
         cells=dict(values=[revenue_df.index, revenue_df.Nov_22_Projected,revenue_df.Nov_22_Actual, revenue_df.Dec_22_Projected, revenue_df.Dec_22_Actual,
             revenue_df.Jan_23_Projected,revenue_df.Jan_23_Actual,revenue_df.Feb_23_Projected,revenue_df.Feb_23_Actual],
-                   fill_color='ivory',
+                   fill_color='colourcode',
                    align='left'))
     ])
 
