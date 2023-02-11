@@ -56,6 +56,8 @@ with tab1:
 with tab2:
   st.header("Revenue")
   pod = ['Product Revenue', 'Services Revenue', 'Trading Revenue']
+  month = ['Nov 22 - Projected','Nov 22 - Actual', 'Dec 22 - Projected', 'Dec 22 - Actual',
+          'Jan 23 - Projected','Jan 23 - Actual','Feb 23 - Projected','Feb 23 - Actual']
   revenue_df = pd.DataFrame([[530000, 550000, 600000, 550000, 750000, 620000, 830000, 730000], 
                    [270000, 290000, 300000, 320000, 350000, 330000, 400000, 410000], 
                    [180000, 210000, 200000, 190000, 180000, 185000, 250000, 270000]], 
