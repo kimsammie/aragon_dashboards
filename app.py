@@ -62,22 +62,36 @@ with tab2:
                    [270000, 290000, 300000, 320000, 350000, 330000, 400000, 410000], 
                    [180000, 210000, 200000, 190000, 180000, 185000, 250000, 270000]], 
                   pod, month)
-  revenue_df
-  
+#   revenue_df
+  rev_proj_df = revenue_df[['Nov 22 - Projected', 'Dec 22 - Projected','Jan 23 - Projected', 'Feb 23 - Projected']]
+  rev_proj_df.columns = ['Nov 22', 'Dec 22', 'Jan 23', 'Feb 23']
+  rev_act_df = revenue_df[['Nov 22 - Actual', 'Dec 22 - Actual','Jan 23 - Actual', 'Feb 23 - Actual']]
+  rev_act_df.columns = ['Nov 22', 'Dec 22', 'Jan 23', 'Feb 23']
+  prod_act = rev_act_df.iloc[0]
+  prod_proj = rev_proj_df.iloc[0]
+  prod_combined = pd.concat([prod_act, prod_proj], axis=1)
+  prod_combined.columns = ['Actual', 'Projected']
+      
+  col1, col2 = st.columns((1,1))
   # display raw data
-  fig = go.Figure(data=[go.Table(
-      header=dict(values=list(revenue_df.columns),
-                  fill_color='tan',
-                  align='left'),
-      cells=dict(values=[revenue_df.Nov_22_Projected,revenue_df.Nov_22_Actual, revenue_df.Dec_22_Projected, revenue_df.Dec_22_Actual,
-          revenue_df.Jan_23_Projected,revenue_df.Jan_23_Actual,revenue_df.Feb_23_Projected,revenue_df.Feb_23_Actual],
-                 fill_color='ivory',
-                 align='left'))
-  ])
+  with col1:
+    fig = go.Figure(data=[go.Table(
+        header=dict(values=list(revenue_df.columns),
+                    fill_color='tan',
+                    align='left'),
+        cells=dict(values=[revenue_df.Nov_22_Projected,revenue_df.Nov_22_Actual, revenue_df.Dec_22_Projected, revenue_df.Dec_22_Actual,
+            revenue_df.Jan_23_Projected,revenue_df.Jan_23_Actual,revenue_df.Feb_23_Projected,revenue_df.Feb_23_Actual],
+                   fill_color='ivory',
+                   align='left'))
+    ])
 
-  fig.update_layout(title_text="Raw Revenue Data",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
-  st.plotly_chart(fig, use_container_width=True)  
+    fig.update_layout(title_text="Raw Revenue Data",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
+    st.plotly_chart(fig, use_container_width=True)  
 
+    with col2:
+      fig = px.line(prod_combined)
+      fig.show()
+      
 with tab3:
    st.header("Income Statement")
 
