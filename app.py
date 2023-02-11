@@ -69,8 +69,8 @@ with tab2:
       header=dict(values=list(revenue_df.columns),
                   fill_color='tan',
                   align='left'),
-      cells=dict(values=revenue_df.Nov_22_Projected,revenue_df.Nov_22_Actual, revenue_df.Dec_22_Projected, revenue_df.Dec_22_Actual,
-          revenue_df.Jan_23_Projected,revenue_df.Jan_23_Actual,revenue_df.Feb_23_Projected,revenue_df.Feb_23_Actual,
+      cells=dict(values=[revenue_df.Nov_22_Projected,revenue_df.Nov_22_Actual, revenue_df.Dec_22_Projected, revenue_df.Dec_22_Actual,
+          revenue_df.Jan_23_Projected,revenue_df.Jan_23_Actual,revenue_df.Feb_23_Projected,revenue_df.Feb_23_Actual],
                  fill_color='ivory',
                  align='left'))
   ])
