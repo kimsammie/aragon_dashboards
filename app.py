@@ -63,10 +63,10 @@ with tab2:
                    [180000, 210000, 200000, 190000, 180000, 185000, 250000, 270000]], 
                   pod, month)
 #   revenue_df
-  rev_proj_df = revenue_df[['Nov 22 - Projected', 'Dec 22 - Projected','Jan 23 - Projected', 'Feb 23 - Projected']]
-  rev_proj_df.columns = ['Nov 22', 'Dec 22', 'Jan 23', 'Feb 23']
-  rev_act_df = revenue_df[['Nov 22 - Actual', 'Dec 22 - Actual','Jan 23 - Actual', 'Feb 23 - Actual']]
-  rev_act_df.columns = ['Nov 22', 'Dec 22', 'Jan 23', 'Feb 23']
+  rev_proj_df = revenue_df[['Nov_22_Projected', 'Dec_22_Projected','Jan_23_Projected', 'Feb_23_Projected']]
+  rev_proj_df.columns = ['Nov_22', 'Dec_22', 'Jan_23', 'Feb_23']
+  rev_act_df = revenue_df[['Nov_22_Actual', 'Dec_22_Actual','Jan_23_Actual', 'Feb_23_Actual']]
+  rev_act_df.columns = ['Nov_22', 'Dec_22', 'Jan_23', 'Feb_23']
   prod_act = rev_act_df.iloc[0]
   prod_proj = rev_proj_df.iloc[0]
   prod_combined = pd.concat([prod_act, prod_proj], axis=1)
