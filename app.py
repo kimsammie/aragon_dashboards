@@ -63,7 +63,19 @@ with tab2:
                    [180000, 210000, 200000, 190000, 180000, 185000, 250000, 270000]], 
                   pod, month)
   revenue_df
+  
+    # display raw data
+  fig = go.Figure(data=[go.Table(
+      header=dict(values=list(revenue_df.columns),
+                  fill_color='tan',
+                  align='left'),
+      cells=dict(values=month,
+                 fill_color='ivory',
+                 align='left'))
+  ])
 
+  fig.update_layout(title_text="Raw Expense Data",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
+  st.plotly_chart(fig, use_container_width=True)  
 
 with tab3:
    st.header("Income Statement")
