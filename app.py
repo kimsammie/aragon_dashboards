@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly.graph_objects as go
 # https://plotly.com/python/table/
+import waterfall_chart
 
 st.set_page_config(layout="wide")
 
@@ -166,6 +167,10 @@ with tab3:
     
     with col2:
       st.write("coming soon")
+      df = pd.read_csv('income_stmt_waterfall.csv')
+      a = df.Components
+      b = df.FY_22
+      waterfall_chart.plot(a, b)
   
 with tab4:
    st.header("Balance Sheet")
