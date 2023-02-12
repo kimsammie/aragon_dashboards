@@ -185,7 +185,7 @@ with tab3:
       ))
 
       fig.update_layout(
-              title = "Profit and loss statement 2018",
+              title = "Key Financial Drivers",
               showlegend = True
       )
 
