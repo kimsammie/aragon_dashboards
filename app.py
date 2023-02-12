@@ -155,7 +155,7 @@ with tab3:
                       fill_color='#264653',
                       font_color="white",
                       align='left'),
-          cells=dict(values=[income_df.Q1_22, income_df.Q2_22, income_df.Q3_22, income_df.Q4_22, income_df.FY_22],
+          cells=dict(values=[income_df.Components, income_df.Q1_22, income_df.Q2_22, income_df.Q3_22, income_df.Q4_22, income_df.FY_22],
                      fill_color='mintcream',
                      font_color="black",
                      align='left'))
