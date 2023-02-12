@@ -143,8 +143,29 @@ with tab2:
     graph3.plotly_chart(trade, use_container_width=True) 
     
 with tab3:
-   st.header("Income Statement")
+    st.header("Income Statement")
+    
+    col1, col2 = st.columns((1,1))
 
+    with col1:
+      income_df = pd.read_csv('income_stmt.csv')
+        # display income statement
+      fig = go.Figure(data=[go.Table(
+          header=dict(values=list(income_df.columns),
+                      fill_color='#264653',
+                      font_color="white",
+                      align='left'),
+          cells=dict(values=[income_df.Q1-22, income_df.Q2-22, income_df.Q3-22, income_df.Q4-22, income_df.FY-22],
+                     fill_color='mintcream',
+                     font_color="black",
+                     align='left'))
+      ])
+
+      fig.update_layout(title_text="Summary Income Statement",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
+      st.plotly_chart(fig, use_container_width=True)   
+    
+    with col2:
+      st.write("coming soon")
   
 with tab4:
    st.header("Balance Sheet")
