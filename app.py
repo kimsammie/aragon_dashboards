@@ -171,6 +171,25 @@ with tab3:
       a = df.Components
       b = df.FY_22
       waterfall_chart.plot(a, b)
+      
+      fig = go.Figure(go.Waterfall(
+      name = "20", orientation = "v",
+      measure = ["relative", "relative", "relative", "relative", "relative", "relative", "relative", "relative", "total"],
+#       x = ["Sales", "Consulting", "Net revenue", "Purchases", "Other expenses", "Profit before tax"],
+      x = a,
+      textposition = "outside",
+#       text = ["+60", "+80", "", "-40", "-20", "Total"],
+#       y = [60, 80, 0, -40, -20, 0],
+      y = b,
+      connector = {"line":{"color":"rgb(63, 63, 63)"}},
+      ))
+
+      fig.update_layout(
+              title = "Profit and loss statement 2018",
+              showlegend = True
+      )
+
+      fig.show()
   
 with tab4:
    st.header("Balance Sheet")
