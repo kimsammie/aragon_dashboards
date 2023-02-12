@@ -166,7 +166,7 @@ with tab3:
       st.plotly_chart(fig, use_container_width=True)   
     
     with col2:
-      st.write("coming soon")
+#       st.write("coming soon")
       df = pd.read_csv('income_stmt_waterfall.csv')
       a = df.Components
       b = df.FY_22
@@ -189,7 +189,8 @@ with tab3:
               showlegend = True
       )
 
-      fig.show()
+#       fig.show()
+      st.plotly_chart(fig, use_container_width=True) 
   
 with tab4:
    st.header("Balance Sheet")
