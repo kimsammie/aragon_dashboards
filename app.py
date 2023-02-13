@@ -173,7 +173,7 @@ with tab3:
       waterfall_chart.plot(a, b)
       
       fig = go.Figure(go.Waterfall(
-      name = "20", orientation = "v",
+      orientation = "v",
       measure = ["relative", "relative", "relative", "relative", "relative", "relative", "relative", "relative", "total"],
 #       x = ["Sales", "Consulting", "Net revenue", "Purchases", "Other expenses", "Profit before tax"],
       x = a,
