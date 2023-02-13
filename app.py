@@ -213,11 +213,11 @@ with tab3:
 #       text = ["+60", "+80", "", "-40", "-20", "Total"],
       y = b,
       connector = {"line":{"color":"rgb(63, 63, 63)"}},
-      ), row=1, col=1)
+      ))
 
       fig.update_layout(
               title = "Key Financial Drivers",
-              showlegend = True
+              showlegend = True, row=1, col=1
       )
 
       fig.add_trace(go.Scatter(x=[20, 30, 40], y=[50, 60, 70]),
