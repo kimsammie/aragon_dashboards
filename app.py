@@ -200,7 +200,7 @@ with tab3:
                     row=1, col=1)
 
       fig.add_trace(go.Scatter(x=[20, 30, 40], y=[50, 60, 70]),
-                    row=1, col=2)
+                    row=2, col=1)
 
 #       fig.show()
       st.plotly_chart(fig, use_container_width=True)
