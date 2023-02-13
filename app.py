@@ -213,7 +213,7 @@ with tab3:
 #       text = ["+60", "+80", "", "-40", "-20", "Total"],
       y = b,
       connector = {"line":{"color":"rgb(63, 63, 63)"}}
-      )))
+      ),row=2, col=1))
 
       fig.update_layout(
               title = "Key Financial Drivers",
