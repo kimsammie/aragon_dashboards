@@ -293,7 +293,7 @@ with tab4:
                 fill_color='#264653',
                 font_color="white",
                 align='left'),
-    cells=dict(values=[asset_df.Components, asset_df.Dec_21, asset_df.Mar_22, asset_df.June_22, asset_df.Sep_22, asset_df.Dec_22],
+    cells=dict(values=[asset_df.Components, asset_df.Dec_21, asset_df.Mar_22, asset_df.Jun_22, asset_df.Sep_22, asset_df.Dec_22],
                fill_color='mintcream',
                font_color="black",
                align='left'))
@@ -310,7 +310,7 @@ with tab4:
                 fill_color='#264653',
                 font_color="white",
                 align='left'),
-    cells=dict(values=[liab_df.Components, liab_df.Dec_21, liab_df.Mar_22, liab_df.June_22, liab_df.Sep_22, liab_df.Dec_22],
+    cells=dict(values=[liab_df.Components, liab_df.Dec_21, liab_df.Mar_22, liab_df.Jun_22, liab_df.Sep_22, liab_df.Dec_22],
                fill_color='mintcream',
                font_color="black",
                align='left'))
