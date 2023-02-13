@@ -320,9 +320,9 @@ with tab4:
     st.plotly_chart(fig, use_container_width=True)  
     
 
-    df=pd.read_csv('income_trend.csv')
-    fig = px.bar(df, x="period", y="amount", color="components", title="Net Income Trend")
-    st.plotly_chart(fig, use_container_width=True)
+  df=pd.read_csv('current_asset_trend.csv')
+  fig = px.bar(df, x="period", y="amount", color="components", title="Current Assets Trend")
+  st.plotly_chart(fig, use_container_width=True)
       
 with st.sidebar:
     add_radio = st.radio(
