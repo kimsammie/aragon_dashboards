@@ -173,7 +173,7 @@ with tab3:
       waterfall_chart.plot(a, b)
       
       fig = go.Figure(go.Waterfall(
-      name = "Net Income Components"
+      name = "Net Income Components",
       orientation = "v",
       measure = ["relative", "relative", "relative", "relative", "relative", "relative", "relative", "relative", "total"],
 #       x = ["Sales", "Consulting", "Net revenue", "Purchases", "Other expenses", "Profit before tax"],
