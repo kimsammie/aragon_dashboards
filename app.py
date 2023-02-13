@@ -164,11 +164,10 @@ with tab3:
     st.plotly_chart(fig, use_container_width=True)  
     
     col1, col2 = st.columns((1,1))
-
-
- 
     
     with col1:
+#       change colors for rows - https://stackoverflow.com/questions/66453291/python-plotly-table-change-color-of-a-specific-row
+# bold fonts - https://stackoverflow.com/questions/51938245/display-dataframe-values-in-bold-font-in-one-row-only
       df = pd.read_csv('income_stmt_waterfall.csv')
       a = df.Components
       b = df.FY_22
@@ -189,22 +188,24 @@ with tab3:
               title = "Key Financial Drivers",
               showlegend = True
       )
-
 #       fig.show()
       st.plotly_chart(fig, use_container_width=True) 
   
   
     with col2:
-      st.write("coming soon")
+      df=pd.read_csv('income_trend.csv')
+      fig = px.bar(df, x="period", y="amount", color="components", title="Net Income Trend")
+      st.plotly_chart(fig, use_container_width=True)
+      
         
+# grid layout reference for later - https://github.com/streamlit/streamlit/issues/309
+# two dataframes in a row - https://github.com/streamlit/streamlit/issues/4865
 
 #       fig = make_subplots(rows=2, cols=1, subplot_titles=('Subplot title1',  'Subplot title2'))
 
 # #       fig.add_trace(go.Scatter(x=[1, 2, 3], y=[4, 5, 6]),
 # #                     row=1, col=1)
       
-
-
 #       fig.add_trace(go.Scatter(x=[20, 30, 40], y=[50, 60, 70]),
 #                     row=2, col=1)
 
