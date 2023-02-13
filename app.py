@@ -147,64 +147,34 @@ with tab2:
 with tab3:
     st.header("Income Statement")
     
+    income_df = pd.read_csv('income_stmt.csv')
+    # display income statement
+    fig = go.Figure(data=[go.Table(
+    header=dict(values=list(income_df.columns),
+                fill_color='#264653',
+                font_color="white",
+                align='left'),
+    cells=dict(values=[income_df.Components, income_df.Q1_22, income_df.Q2_22, income_df.Q3_22, income_df.Q4_22, income_df.FY_22],
+               fill_color='mintcream',
+               font_color="black",
+               align='left'))
+    ])
+
+    fig.update_layout(title_text="Summary Income Statement",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
+    st.plotly_chart(fig, use_container_width=True)  
+    
     col1, col2 = st.columns((1,1))
 
-    with col1:
-      income_df = pd.read_csv('income_stmt.csv')
-        # display income statement
-      fig = go.Figure(data=[go.Table(
-          header=dict(values=list(income_df.columns),
-                      fill_color='#264653',
-                      font_color="white",
-                      align='left'),
-          cells=dict(values=[income_df.Components, income_df.Q1_22, income_df.Q2_22, income_df.Q3_22, income_df.Q4_22, income_df.FY_22],
-                     fill_color='mintcream',
-                     font_color="black",
-                     align='left'))
-      ])
 
-      fig.update_layout(title_text="Summary Income Statement",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
-      st.plotly_chart(fig, use_container_width=True)   
+ 
     
-    with col2:
-#       df = pd.read_csv('income_stmt_waterfall.csv')
-#       a = df.Components
-#       b = df.FY_22
-#       waterfall_chart.plot(a, b)
-      
-#       fig = go.Figure(go.Waterfall(
-#       name = "Net Income Components",
-#       orientation = "v",
-#       measure = ["relative", "relative", "relative", "relative", "relative", "relative", "relative", "relative", "total"],
-#       x = a,
-#       textposition = "outside",
-# #       text = ["+60", "+80", "", "-40", "-20", "Total"],
-#       y = b,
-#       connector = {"line":{"color":"rgb(63, 63, 63)"}},
-#       ))
-
-#       fig.update_layout(
-#               title = "Key Financial Drivers",
-#               showlegend = True
-#       )
-
-# #       fig.show()
-#       st.plotly_chart(fig, use_container_width=True) 
-  
-  
-  
-
-      fig = make_subplots(rows=2, cols=1, subplot_titles=('Subplot title1',  'Subplot title2'))
-
-#       fig.add_trace(go.Scatter(x=[1, 2, 3], y=[4, 5, 6]),
-#                     row=1, col=1)
-      
+    with col1:
       df = pd.read_csv('income_stmt_waterfall.csv')
       a = df.Components
       b = df.FY_22
       waterfall_chart.plot(a, b)
       
-      fig.append_trace(go.Figure(go.Waterfall(
+      fig = go.Figure(go.Waterfall(
       name = "Net Income Components",
       orientation = "v",
       measure = ["relative", "relative", "relative", "relative", "relative", "relative", "relative", "relative", "total"],
@@ -212,19 +182,32 @@ with tab3:
       textposition = "outside",
 #       text = ["+60", "+80", "", "-40", "-20", "Total"],
       y = b,
-      connector = {"line":{"color":"rgb(63, 63, 63)"}}
-      )),row=1, col=1)
+      connector = {"line":{"color":"rgb(63, 63, 63)"}},
+      ))
 
       fig.update_layout(
               title = "Key Financial Drivers",
               showlegend = True
       )
 
-      fig.add_trace(go.Scatter(x=[20, 30, 40], y=[50, 60, 70]),
-                    row=2, col=1)
-
 #       fig.show()
-      st.plotly_chart(fig, use_container_width=True)
+      st.plotly_chart(fig, use_container_width=True) 
+  
+  
+      with col2:
+
+#       fig = make_subplots(rows=2, cols=1, subplot_titles=('Subplot title1',  'Subplot title2'))
+
+# #       fig.add_trace(go.Scatter(x=[1, 2, 3], y=[4, 5, 6]),
+# #                     row=1, col=1)
+      
+
+
+#       fig.add_trace(go.Scatter(x=[20, 30, 40], y=[50, 60, 70]),
+#                     row=2, col=1)
+
+# #       fig.show()
+#       st.plotly_chart(fig, use_container_width=True)
   
 with tab4:
    st.header("Balance Sheet")
