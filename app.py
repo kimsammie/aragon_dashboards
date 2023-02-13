@@ -255,7 +255,7 @@ with tab4:
       mode = "number+delta",
       value = 80366,
       # title = {"text": "Accounts<br><span style='font-size:0.8em;color:gray'>Subtitle</span><br><span style='font-size:0.8em;color:gray'>Subsubtitle</span>"},
-      title = {"text": "Revenue<br><span style='font-size:0.8em;color:gray'>"},
+      title = {"text": "Current Assets<br><span style='font-size:0.8em;color:gray'>"},
       # delta = {'reference': 5034, 'relative': False},
       delta = {'reference': 5034, 'relative': True, "valueformat": ".2%"},
       domain = {'x': [0, 0.2], 'y': [0, 1]}))
@@ -263,21 +263,21 @@ with tab4:
   fig.add_trace(go.Indicator(
       mode = "number+delta",
       value = 48765,
-      title = {"text": "OpEx<br><span style='font-size:0.8em;color:gray'>"},
+      title = {"text": "Long-Term Assets<br><span style='font-size:0.8em;color:gray'>"},
       delta = {'reference': 11654, 'relative': True, "valueformat": ".2%"},
       domain = {'x': [0.25, 0.45], 'y': [0, 1]}))
 
   fig.add_trace(go.Indicator(
       mode = "number+delta",
       value = 4423,
-      title = {"text": "Net Income<br><span style='font-size:0.8em;color:gray'>"},
+      title = {"text": "Liabilities<br><span style='font-size:0.8em;color:gray'>"},
       delta = {'reference': 6842, 'relative': True, "valueformat": ".2%"},
       domain = {'x': [0.5, 0.7], 'y': [0, 1]}))
 
   fig.add_trace(go.Indicator(
       mode = "number+delta",
       value = 0.8,
-      title = {"text": "Earnings per Token<br><span style='font-size:0.8em;color:gray'>"},
+      title = {"text": "Equity<br><span style='font-size:0.8em;color:gray'>"},
       delta = {'reference': 1, 'relative': True, "valueformat": ".2%"},
       domain = {'x': [0.75, 0.95], 'y': [0, 1]}))
 
