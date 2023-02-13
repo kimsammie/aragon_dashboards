@@ -249,7 +249,81 @@ with tab3:
 with tab4:
    st.header("Balance Sheet")
     
+    fig = go.Figure()
+
+    fig.add_trace(go.Indicator(
+        mode = "number+delta",
+        value = 80366,
+        # title = {"text": "Accounts<br><span style='font-size:0.8em;color:gray'>Subtitle</span><br><span style='font-size:0.8em;color:gray'>Subsubtitle</span>"},
+        title = {"text": "Revenue<br><span style='font-size:0.8em;color:gray'>"},
+        # delta = {'reference': 5034, 'relative': False},
+        delta = {'reference': 5034, 'relative': True, "valueformat": ".2%"},
+        domain = {'x': [0, 0.2], 'y': [0, 1]}))
+
+    fig.add_trace(go.Indicator(
+        mode = "number+delta",
+        value = 48765,
+        title = {"text": "OpEx<br><span style='font-size:0.8em;color:gray'>"},
+        delta = {'reference': 11654, 'relative': True, "valueformat": ".2%"},
+        domain = {'x': [0.25, 0.45], 'y': [0, 1]}))
+
+    fig.add_trace(go.Indicator(
+        mode = "number+delta",
+        value = 4423,
+        title = {"text": "Net Income<br><span style='font-size:0.8em;color:gray'>"},
+        delta = {'reference': 6842, 'relative': True, "valueformat": ".2%"},
+        domain = {'x': [0.5, 0.7], 'y': [0, 1]}))
+
+    fig.add_trace(go.Indicator(
+        mode = "number+delta",
+        value = 0.8,
+        title = {"text": "Earnings per Token<br><span style='font-size:0.8em;color:gray'>"},
+        delta = {'reference': 1, 'relative': True, "valueformat": ".2%"},
+        domain = {'x': [0.75, 0.95], 'y': [0, 1]}))
+
+    st.plotly_chart(fig, use_container_width=True)  
+  
+    col1, col2 = st.columns((1,1))
     
+    with col1:
+      # display balance sheet assets
+      asset_df = pd.read_csv('bs_asset.csv')
+      fig = go.Figure(data=[go.Table(
+      header=dict(values=list(asset_df.columns),
+                  fill_color='#264653',
+                  font_color="white",
+                  align='left'),
+      cells=dict(values=[asset_df.Components, asset_df.Dec_21, asset_df.Mar_22, asset_df.June_22, asset_df.Sep_22, asset_df.Dec_22],
+                 fill_color='mintcream',
+                 font_color="black",
+                 align='left'))
+      ])
+
+      fig.update_layout(title_text="Summary Assets",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
+      st.plotly_chart(fig, use_container_width=True)  
+
+    with col2:
+      # display balance sheet liabilities
+      liab_df = pd.read_csv('bs_liab.csv')
+      fig = go.Figure(data=[go.Table(
+      header=dict(values=list(liab_df.columns),
+                  fill_color='#264653',
+                  font_color="white",
+                  align='left'),
+      cells=dict(values=[liab_df.Components, liab_df.Dec_21, liab_df.Mar_22, liab_df.June_22, liab_df.Sep_22, liab_df.Dec_22],
+                 fill_color='mintcream',
+                 font_color="black",
+                 align='left'))
+      ])
+
+      fig.update_layout(title_text="Summary Liabilities & Equity",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
+      st.plotly_chart(fig, use_container_width=True)  
+    
+
+    df=pd.read_csv('income_trend.csv')
+    fig = px.bar(df, x="period", y="amount", color="components", title="Net Income Trend")
+    st.plotly_chart(fig, use_container_width=True)
+      
 with st.sidebar:
     add_radio = st.radio(
         "Choose the time period",
