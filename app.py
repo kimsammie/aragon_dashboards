@@ -179,7 +179,7 @@ with tab3:
         delta = {'reference': 1, 'relative': True, "valueformat": ".2%"},
         domain = {'x': [0.75, 0.95], 'y': [0, 1]}))
 
-        st.plotly_chart(fig, use_container_width=True)  
+    st.plotly_chart(fig, use_container_width=True)  
   
     income_df = pd.read_csv('income_stmt.csv')
     # display income statement
