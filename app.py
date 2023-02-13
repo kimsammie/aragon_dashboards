@@ -204,7 +204,7 @@ with tab3:
       b = df.FY_22
       waterfall_chart.plot(a, b)
       
-      fig = go.Figure(go.Waterfall(
+      fig.add_trace(go.Figure(go.Waterfall(
       name = "Net Income Components",
       orientation = "v",
       measure = ["relative", "relative", "relative", "relative", "relative", "relative", "relative", "relative", "total"],
@@ -212,8 +212,8 @@ with tab3:
       textposition = "outside",
 #       text = ["+60", "+80", "", "-40", "-20", "Total"],
       y = b,
-      connector = {"line":{"color":"rgb(63, 63, 63)"}},row=1, col=1
-      ))
+      connector = {"line":{"color":"rgb(63, 63, 63)"}}
+      ),row=1, col=1)
 
       fig.update_layout(
               title = "Key Financial Drivers",
