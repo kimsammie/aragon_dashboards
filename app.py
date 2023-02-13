@@ -194,7 +194,7 @@ with tab3:
   
   
 
-      fig = make_subplots(rows=1, cols=2, column_widths=[0.7, 0.3])
+      fig = make_subplots(rows=2, cols=1)
 
       fig.add_trace(go.Scatter(x=[1, 2, 3], y=[4, 5, 6]),
                     row=1, col=1)
