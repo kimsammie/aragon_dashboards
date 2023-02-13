@@ -196,8 +196,29 @@ with tab3:
 
       fig = make_subplots(rows=2, cols=1)
 
-      fig.add_trace(go.Scatter(x=[1, 2, 3], y=[4, 5, 6]),
-                    row=1, col=1)
+#       fig.add_trace(go.Scatter(x=[1, 2, 3], y=[4, 5, 6]),
+#                     row=1, col=1)
+      
+      df = pd.read_csv('income_stmt_waterfall.csv')
+      a = df.Components
+      b = df.FY_22
+      waterfall_chart.plot(a, b)
+      
+      fig = go.Figure(go.Waterfall(
+      name = "Net Income Components",
+      orientation = "v",
+      measure = ["relative", "relative", "relative", "relative", "relative", "relative", "relative", "relative", "total"],
+      x = a,
+      textposition = "outside",
+#       text = ["+60", "+80", "", "-40", "-20", "Total"],
+      y = b,
+      connector = {"line":{"color":"rgb(63, 63, 63)"}},
+      ), row=1, col=1)
+
+      fig.update_layout(
+              title = "Key Financial Drivers",
+              showlegend = True
+      )
 
       fig.add_trace(go.Scatter(x=[20, 30, 40], y=[50, 60, 70]),
                     row=2, col=1)
