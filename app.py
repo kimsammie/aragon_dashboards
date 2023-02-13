@@ -221,6 +221,7 @@ with tab3:
       )
 
       fig.add_trace(go.Scatter(x=[20, 30, 40], y=[50, 60, 70]),
+                    title = "Net Income Trend",
                     row=2, col=1)
 
 #       fig.show()
