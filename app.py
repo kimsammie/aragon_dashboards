@@ -146,7 +146,41 @@ with tab2:
     
 with tab3:
     st.header("Income Statement")
-    
+  
+    fig = go.Figure()
+
+    fig.add_trace(go.Indicator(
+        mode = "number+delta",
+        value = 80366,
+        # title = {"text": "Accounts<br><span style='font-size:0.8em;color:gray'>Subtitle</span><br><span style='font-size:0.8em;color:gray'>Subsubtitle</span>"},
+        title = {"text": "Revenue<br><span style='font-size:0.8em;color:gray'>"},
+        # delta = {'reference': 5034, 'relative': False},
+        delta = {'reference': 5034, 'relative': True, "valueformat": ".2%"},
+        domain = {'x': [0, 0.2], 'y': [0, 1]}))
+
+    fig.add_trace(go.Indicator(
+        mode = "number+delta",
+        value = 48765,
+        title = {"text": "OpEx<br><span style='font-size:0.8em;color:gray'>"},
+        delta = {'reference': 11654, 'relative': True, "valueformat": ".2%"},
+        domain = {'x': [0.25, 0.45], 'y': [0, 1]}))
+
+    fig.add_trace(go.Indicator(
+        mode = "number+delta",
+        value = 4423,
+        title = {"text": "Net Income<br><span style='font-size:0.8em;color:gray'>"},
+        delta = {'reference': 6842, 'relative': True, "valueformat": ".2%"},
+        domain = {'x': [0.5, 0.7], 'y': [0, 1]}))
+
+    fig.add_trace(go.Indicator(
+        mode = "number+delta",
+        value = 0.8,
+        title = {"text": "Earnings per Token<br><span style='font-size:0.8em;color:gray'>"},
+        delta = {'reference': 1, 'relative': True, "valueformat": ".2%"},
+        domain = {'x': [0.75, 0.95], 'y': [0, 1]}))
+
+        st.plotly_chart(fig, use_container_width=True)  
+  
     income_df = pd.read_csv('income_stmt.csv')
     # display income statement
     fig = go.Figure(data=[go.Table(
