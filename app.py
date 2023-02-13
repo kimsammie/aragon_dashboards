@@ -204,7 +204,7 @@ with tab3:
       b = df.FY_22
       waterfall_chart.plot(a, b)
       
-      fig.add_trace(go.Figure(go.Waterfall(
+      fig = go.Figure(go.Waterfall(
       name = "Net Income Components",
       orientation = "v",
       measure = ["relative", "relative", "relative", "relative", "relative", "relative", "relative", "relative", "total"],
