@@ -11,7 +11,7 @@ from plotly.subplots import make_subplots
 
 st.set_page_config(layout="wide")
 
-st.title("Aragon Financial Reporting")
+st.title("Acme Financial Reporting")
 
 st.write("")
 st.write("")
