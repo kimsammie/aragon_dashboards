@@ -217,7 +217,7 @@ with tab3:
 
       fig.update_layout(
               title = "Key Financial Drivers",
-              showlegend = True,row=1, col=1
+              showlegend = True
       )
 
       fig.add_trace(go.Scatter(x=[20, 30, 40], y=[50, 60, 70]),
