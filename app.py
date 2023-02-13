@@ -194,7 +194,9 @@ with tab3:
       st.plotly_chart(fig, use_container_width=True) 
   
   
-      with col2:
+    with col2:
+      st.write("coming soon")
+        
 
 #       fig = make_subplots(rows=2, cols=1, subplot_titles=('Subplot title1',  'Subplot title2'))
 
