@@ -326,6 +326,11 @@ with tab4:
       
 with st.sidebar:
     add_radio = st.radio(
-        "Choose the time period",
-        ("Q4 2022", "Q3 2022")
+        "Choose Year",
+        ("2021", "2022", "2023")
+    )
+
+    add_radio = st.radio(
+    "Choose the time period",
+    ("Q1", "Q2", "Q3", "Q4")
     )
