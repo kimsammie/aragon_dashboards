@@ -253,32 +253,32 @@ with tab4:
 
   fig.add_trace(go.Indicator(
       mode = "number+delta",
-      value = 80366,
+      value = 44055,
       # title = {"text": "Accounts<br><span style='font-size:0.8em;color:gray'>Subtitle</span><br><span style='font-size:0.8em;color:gray'>Subsubtitle</span>"},
       title = {"text": "Current Assets<br><span style='font-size:0.8em;color:gray'>"},
       # delta = {'reference': 5034, 'relative': False},
-      delta = {'reference': 5034, 'relative': True, "valueformat": ".2%"},
+      delta = {'reference': 828, 'relative': True, "valueformat": ".2%"},
       domain = {'x': [0, 0.2], 'y': [0, 1]}))
 
   fig.add_trace(go.Indicator(
       mode = "number+delta",
-      value = 48765,
+      value = 142477,
       title = {"text": "Long-Term Assets<br><span style='font-size:0.8em;color:gray'>"},
-      delta = {'reference': 11654, 'relative': True, "valueformat": ".2%"},
+      delta = {'reference': 1208, 'relative': True, "valueformat": ".2%"},
       domain = {'x': [0.25, 0.45], 'y': [0, 1]}))
 
   fig.add_trace(go.Indicator(
       mode = "number+delta",
-      value = 4423,
+      value = 15323,
       title = {"text": "Liabilities<br><span style='font-size:0.8em;color:gray'>"},
-      delta = {'reference': 6842, 'relative': True, "valueformat": ".2%"},
+      delta = {'reference': 3, 'relative': True, "valueformat": ".2%"},
       domain = {'x': [0.5, 0.7], 'y': [0, 1]}))
 
   fig.add_trace(go.Indicator(
       mode = "number+delta",
-      value = 0.8,
+      value = 171209
       title = {"text": "Equity<br><span style='font-size:0.8em;color:gray'>"},
-      delta = {'reference': 1, 'relative': True, "valueformat": ".2%"},
+      delta = {'reference': 2033, 'relative': True, "valueformat": ".2%"},
       domain = {'x': [0.75, 0.95], 'y': [0, 1]}))
 
   st.plotly_chart(fig, use_container_width=True)  
