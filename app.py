@@ -325,12 +325,18 @@ with tab4:
   st.plotly_chart(fig, use_container_width=True)
       
 with st.sidebar:
+    st.write("Choose the time period")
     add_radio = st.radio(
         "Choose Year",
         ("2021", "2022", "2023")
     )
 
     add_radio = st.radio(
-    "Choose the time period",
+    "Choose Quarter",
     ("Q1", "Q2", "Q3", "Q4")
+    )
+    
+    add_radio = st.radio(
+    "Choose Squad",
+    ("Data Squad", "Ops Squad", "Legal Squad", "Finance Squad")
     )
