@@ -276,7 +276,7 @@ with tab4:
 
   fig.add_trace(go.Indicator(
       mode = "number+delta",
-      value = 171209
+      value = 171209,
       title = {"text": "Equity<br><span style='font-size:0.8em;color:gray'>"},
       delta = {'reference': 2033, 'relative': True, "valueformat": ".2%"},
       domain = {'x': [0.75, 0.95], 'y': [0, 1]}))
