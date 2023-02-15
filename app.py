@@ -335,7 +335,8 @@ with st.sidebar:
     "Choose Quarter",
     ("Q1", "Q2", "Q3", "Q4")
     )
-    
+
+with st.sidebar:
     st.write("Choose Squad")
     add_radio = st.radio(
 #     "Choose Squad",
