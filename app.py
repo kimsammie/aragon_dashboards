@@ -328,11 +328,12 @@ with tab5:
   st.header("Admin Input")
   st.write('Select three known variables:')
   option_1 = st.checkbox('DeWork')
+  if option_1:
+  st.write('Great!')
   option_2 = st.checkbox('Parcel')
   option_3 = st.checkbox('Excel')
   
-  if option_1:
-    st.write('Great!')
+
   
 with st.sidebar:
 #     st.write("Choose the time period")
