@@ -329,7 +329,6 @@ with tab5:
   st.write('Select three known variables:')
   option_1 = st.checkbox('DeWork')
   if option_1:
-    st.write('Great!')
     text_input = st.text_input(
     "Enter the wallet address 👇",
 #     "This is a placeholder",
@@ -337,8 +336,18 @@ with tab5:
     )
 
   option_2 = st.checkbox('Parcel')
+  if option_2:
+    text_input = st.text_input(
+    "Enter the wallet address 👇",
+    )
+    
   option_3 = st.checkbox('Excel')
-  
+  if option_3:
+    uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
+    for uploaded_file in uploaded_files:
+        bytes_data = uploaded_file.read()
+        st.write("filename:", uploaded_file.name)
+        st.write(bytes_data)
 
   
 with st.sidebar:
