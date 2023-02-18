@@ -16,7 +16,7 @@ st.title("Acme Financial Reporting")
 st.write("")
 st.write("")
 
-tab1, tab2, tab3, tab4 = st.tabs(["📈 OpEx", "Revenue", "Income Statement", "Balance Sheet"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["📈 OpEx", "Revenue", "Income Statement", "Balance Sheet", "Admin Input"])
 
 with tab1:
   st.header("Operating Expense")
@@ -323,7 +323,10 @@ with tab4:
   df=pd.read_csv('current_asset_trend.csv')
   fig = px.bar(df, x="period", y="amount", color="components", title="Current Assets Trend")
   st.plotly_chart(fig, use_container_width=True)
-      
+
+with tab5:
+  st.header("Admin Input")
+  
 with st.sidebar:
 #     st.write("Choose the time period")
     add_radio = st.radio(
