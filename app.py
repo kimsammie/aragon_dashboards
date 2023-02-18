@@ -331,10 +331,9 @@ with tab5:
   if option_1:
     st.write('Great!')
     text_input = st.text_input(
-    "Enter some text 👇",
-    label_visibility=st.session_state.visibility,
-    disabled=st.session_state.disabled,
-    placeholder=st.session_state.placeholder,
+    "Enter the wallet address 👇",
+#     "This is a placeholder",
+#     key="placeholder",
     )
 
   option_2 = st.checkbox('Parcel')
