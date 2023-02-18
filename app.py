@@ -338,7 +338,7 @@ with tab5:
   option_2 = st.checkbox('Parcel')
   if option_2:
     text_input2 = st.text_input(
-    "Enter the wallet address 👇",
+    "Enter the wallet address 👇", key="parcel input"
     )
     
   option_3 = st.checkbox('Excel')
