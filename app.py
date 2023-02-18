@@ -366,3 +366,5 @@ with st.sidebar:
     "Choose Squad",
     ("Data Squad", "Ops Squad", "Legal Squad", "Finance Squad")
     )
+
+    # https://github.com/PablocFonseca/streamlit-aggrid
