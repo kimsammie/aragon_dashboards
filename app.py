@@ -326,7 +326,7 @@ with tab4:
 
 with tab5:
   st.header("Admin Input")
-  st.write('Select three known variables:')
+  st.write('Select the source of your financial data:')
   option_1 = st.checkbox('DeWork')
   if option_1:
     text_input1 = st.text_input(
