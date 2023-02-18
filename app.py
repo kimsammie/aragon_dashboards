@@ -330,6 +330,13 @@ with tab5:
   option_1 = st.checkbox('DeWork')
   if option_1:
     st.write('Great!')
+    text_input = st.text_input(
+    "Enter some text 👇",
+    label_visibility=st.session_state.visibility,
+    disabled=st.session_state.disabled,
+    placeholder=st.session_state.placeholder,
+    )
+
   option_2 = st.checkbox('Parcel')
   option_3 = st.checkbox('Excel')
   
