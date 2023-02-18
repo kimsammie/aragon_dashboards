@@ -329,7 +329,7 @@ with tab5:
   st.write('Select three known variables:')
   option_1 = st.checkbox('DeWork')
   if option_1:
-    text_input = st.text_input(
+    text_input1 = st.text_input(
     "Enter the wallet address 👇",
 #     "This is a placeholder",
 #     key="placeholder",
@@ -337,7 +337,7 @@ with tab5:
 
   option_2 = st.checkbox('Parcel')
   if option_2:
-    text_input = st.text_input(
+    text_input2 = st.text_input(
     "Enter the wallet address 👇",
     )
     
