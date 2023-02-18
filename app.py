@@ -331,6 +331,9 @@ with tab5:
   option_2 = st.checkbox('Parcel')
   option_3 = st.checkbox('Excel')
   
+  if option_1:
+    st.write('Great!')
+  
 with st.sidebar:
 #     st.write("Choose the time period")
     add_radio = st.radio(
