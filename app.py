@@ -329,7 +329,7 @@ with tab5:
   st.write('Select three known variables:')
   option_1 = st.checkbox('DeWork')
   if option_1:
-  st.write('Great!')
+    st.write('Great!')
   option_2 = st.checkbox('Parcel')
   option_3 = st.checkbox('Excel')
   
