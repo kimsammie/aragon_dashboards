@@ -334,6 +334,11 @@ with tab5:
 #     "This is a placeholder",
 #     key="placeholder",
     )
+    uploaded_files = st.file_uploader("Upload the mapping", accept_multiple_files=True)
+    for uploaded_file in uploaded_files:
+        bytes_data = uploaded_file.read()
+        st.write("filename:", uploaded_file.name)
+        st.write(bytes_data)
 
   option_2 = st.checkbox('Parcel')
   if option_2:
