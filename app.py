@@ -8,6 +8,9 @@ import plotly.graph_objects as go
 # https://plotly.com/python/table/
 import waterfall_chart
 from plotly.subplots import make_subplots
+from requests import request
+import json
+from collections import Counter
 
 st.set_page_config(layout="wide")
 
@@ -16,7 +19,7 @@ st.title("Acme Financial Reporting")
 st.write("")
 st.write("")
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["📈 OpEx", "Revenue", "Income Statement", "Balance Sheet", "Admin Input"])
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["📈 OpEx", "Revenue", "Income Statement", "Balance Sheet", "Admin Input", "OpEx from Admin Input"])
 
 with tab1:
   st.header("Operating Expense")
@@ -327,7 +330,7 @@ with tab4:
 with tab5:
   st.header("Admin Input")
   st.write('Select the source of your financial data:')
-  option_1 = st.checkbox('DeWork')
+  option_1 = st.checkbox('Gnosis')
   if option_1:
     text_input1 = st.text_input(
     "Enter the wallet address 👇",
@@ -354,6 +357,109 @@ with tab5:
         st.write("filename:", uploaded_file.name)
         st.write(bytes_data)
 
+with tab6:
+  st.header("OpEx from Admin Input")
+  st.write("A custom UI that displays components of expenses, trends and breakdowns all seamlessly off of files or data feeds.")
+  st.write("")
+  st.write("")
+  st.write("")
+  
+  address = text_input1  
+  gnosis_url = f"https://safe-transaction-mainnet.safe.global/api/v1/safes/{address}/all-transactions/"
+
+#   df = pd.read_csv('Aragon_financial_simple.csv')
+  def merge_batches(url, txs=pd.DataFrame()):
+    r = json.loads(request("GET", url).text)
+    new_batch = pd.DataFrame.from_dict(r["results"])
+    txs = pd.concat([txs, new_batch]).sort_values("executionDate")
+
+    if r["next"]:
+        txs = merge_batches(r["next"], txs)
+
+    return txs
+
+  txs = merge_batches(gnosis_url)
+  
+  transfers = pd.concat([pd.DataFrame(t) for t in txs["transfers"]]).reset_index()
+  transfers["Amount"] = transfers["value"].astype(float) / 10 ** transfers["tokenInfo"].apply(lambda x: x["decimals"])
+  
+  squads = {
+      "Data": [
+          "0xbF0f24fD34bC76CD6d8Eb37cc99d4477ed3a98FB",
+          "0x62ccd316e91EE0A0448E97251CdfA4dc660F34dc",
+          "0xB5d08d891Ee61775BDDa71C7F5190573868309aE",
+          "0x94Db1840c3C268023e9CdEd25049db37dA7f791d",
+          "0xe5fF2C80759db9408dC9fD22b155b851Cd5aAA94",
+          "0x1FCabBA469B151dF83a6A72Cdd1113c154F7A402",
+          "0xf14B772F060F1315CAce35aF31955f54952e464D"
+      ],
+      "Ops": [
+          "0xfE11aB456115186999724725fDf479A9569A641c",
+          "0x51d93270eA1aD2ad0506c3BE61523823400E114C",
+          "0x127277c6ED7Abaa30f72aa576d734ABe4C40D783",
+          "0xd4ebc61981e5B9AB392b68f2638012E2346D534C",
+          "0x2085E2838DE7f47128A94AC9d938ed4C5A28016B",
+          "0x11f4c72e750407fa9572D0B3BE8AFcfD8f6FA16b",
+          "0xa9A94e4718c045CCdf94266403aF4aDD53A2fD15",
+          "0xd68512Dd51eeC0a1bbD8d3160FD62EF5bb740363",
+          "0x29675e48606cF67603D501B85496AC7a842dABC3"
+
+      ],
+      "Finance": [
+          "0xDacf1065b12849298dc5B47EcE9553094000074F",
+          "0x580e5E54055d087D7F012dD43e54cceaE9ce4265",
+          "0x9DF5Ce66CFA5655245AbbE337660a411d6EEBE37",
+          "0x5496DB4eFC97A4B6592504638e70E925E6ea6e72",
+          "0x22477DfBb4070100DB643Cb18fF6A06A186e9408",
+      ],
+      "Legal": ["0x7480Fa1a219F548E121F5a8F2bbF81eC61EfC318",
+      "0xC9EeC90a0Ca7E61a24842eAfF2131DC90a7b4235", "0xe6B9b2a1eA3dfd9294f0e4a6abB41334b319c602"]
+  }
+
+  assert all([c == 1 for c in Counter([add for adds in squads.values() for add in adds]).values()])
+
+  add_to_squad = {add: sq for sq, adds in squads.items() for add in adds}
+  transfers.loc[:, "squad"] = transfers.loc[:, "to"].map(add_to_squad)  
+  transfers.loc[transfers["squad"].isna(), ["executionDate", "transactionHash", "from", "to", "tokenId", "Amount"]].to_dict(orient="record")
+  transfers_short = transfers[['executionDate', 'Amount', 'squad']]
+  transfers_short['Amount'] = transfers_short['Amount'].round()
+  transfers_short['Month']  = transfers_short['executionDate'].apply(lambda x: x.strftime('%B-%Y')) 
+  
+  col1, col2 = st.columns((1.5,1))
+
+  with col1:
+    fig = px.histogram(transfers_short, x = 'Month', y='Amount', color="squad", template = 'seaborn', barmode='group')
+    fig.update_layout(title_text="MoM Expense by Squad",
+                      yaxis_title="Amount", xaxis_title="Month")
+    col1.plotly_chart(fig, use_container_width=True) 
+
+
+  with col2:
+    # copy data for the pie chart    
+    df_=df[['Squad', 'Amount']].copy()
+    data=df_.groupby(['Squad']).sum()['Amount']
+    labels = df_['Squad'].unique().tolist()
+
+    fig = px.pie(df_, values=data, names=labels, template = 'seaborn')
+
+    fig.update_layout(title_text="Expense Breakdown by Squad")
+    col2.plotly_chart(fig, use_container_width=True)  
+
+
+  # display raw data
+  fig = go.Figure(data=[go.Table(
+      header=dict(values=list(df.columns),
+                  fill_color='#264653',
+                  font_color="white",
+                  align='left'),
+      cells=dict(values=[df.Squad, df.Category, df.Detail, df.Month, df.Amount],
+                 fill_color='mintcream',
+                 font_color="black",
+                 align='left'))
+  ])
+
+  fig.update_layout(title_text="Raw Expense Data",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
+  st.plotly_chart(fig, use_container_width=True)   
   
 with st.sidebar:
 #     st.write("Choose the time period")
