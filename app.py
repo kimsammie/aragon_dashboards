@@ -426,10 +426,10 @@ with tab6:
   transfers_short['Amount'] = transfers_short['Amount'].round()
 #   st.write("until this works")
 #   transfers_short['Month']  = transfers_short['executionDate'].apply(lambda x: x.strftime('%Y-%m')) 
-  def day_month_flip(date_to_flip):
-    return pd.to_datetime(date_to_flip.strftime('%Y-%m'))
+#   def day_month_flip(date_to_flip):
+#     return pd.to_datetime(date_to_flip.strftime('%Y-%m'))
 
-  transfers_short['Month']  = transfers_short['executionDate'].apply(lambda x: day_month_flip(x))
+#   transfers_short['Month']  = transfers_short['executionDate'].apply(lambda x: day_month_flip(x))
   
   col1, col2 = st.columns((1.5,1))
 
