@@ -442,11 +442,11 @@ with tab6:
 
   with col2:
     # copy data for the pie chart    
-    df_=df[['Squad', 'Amount']].copy()
-    data=df_.groupby(['Squad']).sum()['Amount']
-    labels = df_['Squad'].unique().tolist()
+    transfers_short_=transfers_short[['squad', 'Amount']].copy()
+    data=transfers_short_.groupby(['squad']).sum()['Amount']
+    labels = transfers_short_['squad'].unique().tolist()
 
-    fig = px.pie(df_, values=data, names=labels, template = 'seaborn')
+    fig = px.pie(transfers_short_, values=data, names=labels, template = 'seaborn')
 
     fig.update_layout(title_text="Expense Breakdown by Squad")
     col2.plotly_chart(fig, use_container_width=True)  
