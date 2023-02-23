@@ -443,13 +443,9 @@ with tab6:
   with col2:
     # copy data for the pie chart    
     transfers_short_=transfers_short[['squad', 'Amount']].copy()
-    st.write(transfers_short_)
     data=transfers_short_.groupby(['squad'], dropna=False).sum()['Amount']
     st.write(data)
     labels = transfers_short_['squad'].unique().tolist()
-    st.write(labels)
-#     labels = ["Ops", "Finance", "Data", "Legal"]
-#     st.write(labels)
 
     fig = px.pie(values=data, names=labels, template = 'seaborn')
 
