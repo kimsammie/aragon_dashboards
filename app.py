@@ -424,12 +424,12 @@ with tab6:
   transfers_short = transfers[['executionDate', 'Amount', 'squad']]
   transfers_short['Amount'] = transfers_short['Amount'].round()
   st.write("until this works")
-  transfers_short['Month']  = transfers_short['executionDate'].apply(lambda x: x.strftime('%B-%Y')) 
+#   transfers_short['Month']  = transfers_short['executionDate'].apply(lambda x: x.strftime('%B-%Y')) 
   
   col1, col2 = st.columns((1.5,1))
 
   with col1:
-    fig = px.histogram(transfers_short, x = 'Month', y='Amount', color="squad", template = 'seaborn', barmode='group')
+    fig = px.histogram(transfers_short, x = 'executionDate', y='Amount', color="squad", template = 'seaborn', barmode='group')
     fig.update_layout(title_text="MoM Expense by Squad",
                       yaxis_title="Amount", xaxis_title="Month")
     col1.plotly_chart(fig, use_container_width=True) 
