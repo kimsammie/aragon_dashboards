@@ -443,18 +443,14 @@ with tab6:
   with col2:
     # copy data for the pie chart    
     transfers_short_=transfers_short[['squad', 'Amount']].copy()
-    st.write(transfers_short_)
     data=transfers_short_.groupby(['squad'], dropna=False).sum()
-    st.write(data)
     data=data.sort_values(by=['Amount'], ascending=False)
-    st.write(data)
     data=data['Amount']
     st.write(data)
     labels = transfers_short_['squad'].unique().tolist()
     st.write(labels)
 
     fig = px.pie(transfers_short_, values=data, names=labels, template = 'seaborn')
-#     fig = px.pie(transfers_short_, values=data, names="squad",template = 'seaborn')
 
     fig.update_layout(title_text="Expense Breakdown by Squad")
     col2.plotly_chart(fig, use_container_width=True)  
