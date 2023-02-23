@@ -448,10 +448,10 @@ with tab6:
     st.write(data)
     labels = transfers_short_['squad'].unique().tolist()
     st.write(labels)
-    labels = ["Ops", "Finance", "Data", "Legal"]
-    st.write(labels)
+#     labels = ["Ops", "Finance", "Data", "Legal"]
+#     st.write(labels)
 
-    fig = px.pie(transfers_short_, values=data, names=labels, template = 'seaborn')
+    fig = px.pie(values=data, names=labels, template = 'seaborn')
 
     fig.update_layout(title_text="Expense Breakdown by Squad")
     col2.plotly_chart(fig, use_container_width=True)  
