@@ -460,7 +460,7 @@ with tab6:
                   fill_color='#264653',
                   font_color="white",
                   align='left'),
-      cells=dict(values=[transfers_short.Date, transfers_short.Amount, transfers_short.Squad], 
+      cells=dict(values=[transfers_short.executionDate, transfers_short.Amount, transfers_short.squad], 
                  fill_color='mintcream',
                  font_color="black",
                  align='left'))
