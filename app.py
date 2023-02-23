@@ -425,7 +425,7 @@ with tab6:
   transfers_short = transfers[['executionDate', 'Amount', 'squad']]
   transfers_short['Amount'] = transfers_short['Amount'].round()
   st.write("until this works")
-  transfers_short['Month']  = transfers_short['executionDate'].apply(lambda x: x.strftime('%B-%Y')) 
+  transfers_short['Month']  = transfers_short['executionDate'].apply(lambda x: x.strftime('%Y-%m')) 
   
   col1, col2 = st.columns((1.5,1))
 
