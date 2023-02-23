@@ -443,7 +443,8 @@ with tab6:
   with col2:
     # copy data for the pie chart    
     transfers_short_=transfers_short[['squad', 'Amount']].copy()
-    data=transfers_short_.groupby(['squad'], dropna=False).sum()['Amount'].sort_values(by=['Amount'])
+    data=transfers_short_.groupby(['squad'], dropna=False).sum()['Amount']
+    data=data.sort_values(by=['Amount'], ascending=False)
     st.write(data)
     labels = transfers_short_['squad'].unique().tolist()
 
