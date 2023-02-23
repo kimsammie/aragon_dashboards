@@ -367,31 +367,16 @@ with tab6:
   address = text_input1  
   gnosis_url = f"https://safe-transaction-mainnet.safe.global/api/v1/safes/{address}/all-transactions/"
 
-#   df = pd.read_csv('Aragon_financial_simple.csv')
-#   def merge_batches(url, txs=pd.DataFrame()):
-#     r = json.loads(request("GET", url).text)
-#     new_batch = pd.DataFrame.from_dict(r["results"])
-#     txs = pd.concat([txs, new_batch]).sort_values("executionDate")
-
-#     if r["next"]:
-#         txs = merge_batches(r["next"], txs)
-
-#     return txs
-
-#   txs = merge_batches(gnosis_url)
+  df = pd.read_csv('Aragon_financial_simple.csv')
   def merge_batches(url, txs=pd.DataFrame()):
     r = json.loads(request("GET", url).text)
-    for i in range(1):
-        print(r)
-        break
-        new_batch = pd.DataFrame.from_dict(r["results"])
-        txs = pd.concat([txs, new_batch]).sort_values("executionDate")
+    new_batch = pd.DataFrame.from_dict(r["results"])
+    txs = pd.concat([txs, new_batch]).sort_values("executionDate")
 
-        if r["next"]:
-            txs = merge_batches(r["next"], txs)
+    if r["next"]:
+        txs = merge_batches(r["next"], txs)
 
-        return txs
-
+    return txs
 
   txs = merge_batches(gnosis_url)
 
