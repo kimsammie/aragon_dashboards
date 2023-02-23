@@ -445,7 +445,9 @@ with tab6:
     transfers_short_=transfers_short[['squad', 'Amount']].copy()
     st.write(transfers_short_)
     data=transfers_short_.groupby(['squad']).sum()['Amount']
+    st.write(data)
     labels = transfers_short_['squad'].unique().tolist()
+    st.write(labels)
 
     fig = px.pie(transfers_short_, values=data, names=labels, template = 'seaborn')
 
