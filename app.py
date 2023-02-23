@@ -510,7 +510,11 @@ with tab7:
 
 #     fig.update_layout(title_text="Expense Breakdown by Squad")
 #     col2.plotly_chart(fig, use_container_width=True)  
-
+    
+    fig = px.histogram(df_, x = 'Date', y='Amount', color="Workspace Name", template = 'seaborn', barmode='group')
+    fig.update_layout(title_text="MoM Expense by Squad",
+                      yaxis_title="Amount", xaxis_title="Month")
+    col2.plotly_chart(fig, use_container_width=True) 
 
 #   # display raw data
 #   fig = go.Figure(data=[go.Table(
