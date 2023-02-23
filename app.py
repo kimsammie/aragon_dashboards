@@ -498,6 +498,7 @@ with tab7:
 
 
   with col2:
+    st.write("TBD")
     # copy data for the pie chart    
 #     df_=df[['Squad', 'Amount']].copy()
 #     data=df_.groupby(['Squad']).sum()['Amount']
