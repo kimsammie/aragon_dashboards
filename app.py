@@ -448,6 +448,8 @@ with tab6:
     st.write(data)
     labels = transfers_short_['squad'].unique().tolist()
     st.write(labels)
+    labels = ["Ops", "Finance", "Data", "Legal"]
+    st.write(labels)
 
     fig = px.pie(transfers_short_, values=data, names=labels, template = 'seaborn')
 
