@@ -483,6 +483,8 @@ with tab7:
   # load static file for now
   df = pd.read_csv('DeWork.csv',encoding='windows-1252')
   df_=df[df['Amount'].notnull()]
+  
+  df_['Date']  = pd.to_datetime(df_['Date']).apply(lambda x: x.strftime('%Y-%m')) 
 
   col1, col2 = st.columns((1,1))
 
