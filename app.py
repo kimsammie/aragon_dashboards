@@ -455,11 +455,11 @@ with tab6:
 
   # display raw data
   fig = go.Figure(data=[go.Table(
-      header=dict(values=list(df.columns),
+      header=dict(values=list(transfers_short.columns),
                   fill_color='#264653',
                   font_color="white",
                   align='left'),
-      cells=dict(values=[df.Squad, df.Category, df.Detail, df.Month, df.Amount],
+      cells=dict(values=[transfers_short.executionDate, transfers_short.squad, transfers_short.Amount], 
                  fill_color='mintcream',
                  font_color="black",
                  align='left'))
