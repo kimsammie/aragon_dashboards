@@ -505,7 +505,7 @@ with tab7:
 
   # display raw data
   fig = go.Figure(data=[go.Table(
-      header=dict(values=[df_.Date, df_.Workspace_Name, df_.Task_Name, df_.Assignee, df_.Amount],
+      header=dict(values=['Date', 'Workspace_Name', 'Task_Name', 'Assignee', 'Amount'],
                   fill_color='#264653',
                   font_color="white",
                   align='left'),
