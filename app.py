@@ -485,6 +485,7 @@ with tab7:
   df_=df[df['Amount'].notnull()]
   
   df_['Date']  = pd.to_datetime(df_['Date']).apply(lambda x: x.strftime('%Y-%m')) 
+  df_.rename(columns={"Workspace Name": "Workspace_Name", "Task Name": "Task_Name"})
 
   col1, col2 = st.columns((1,1))
 
@@ -508,7 +509,7 @@ with tab7:
                   fill_color='#264653',
                   font_color="white",
                   align='left'),
-      cells=dict(values=[df_.Date, df_.Workspace Name, df_.Task Name, df_.Assignee, df_.Amount],
+      cells=dict(values=[df_.Date, df_.Workspace_Name, df_.Task_Name, df_.Assignee, df_.Amount],
                  fill_color='mintcream',
                  font_color="black",
                  align='left'))
