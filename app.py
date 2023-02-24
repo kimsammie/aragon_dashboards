@@ -486,7 +486,6 @@ with tab7:
   
   df_['Date']  = pd.to_datetime(df_['Date']).apply(lambda x: x.strftime('%Y-%m')) 
   df_ = df_.rename(columns={"Workspace Name": "Workspace_Name", "Task Name": "Task_Name"})
-  st.write(list(df_.columns))
 
   col1, col2 = st.columns((1,1))
 
@@ -506,7 +505,7 @@ with tab7:
 
   # display raw data
   fig = go.Figure(data=[go.Table(
-      header=dict(values=list(df_.columns),
+      header=dict(values=[df_.Date, df_.Workspace_Name, df_.Task_Name, df_.Assignee, df_.Amount],
                   fill_color='#264653',
                   font_color="white",
                   align='left'),
