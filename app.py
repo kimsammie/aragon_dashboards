@@ -492,7 +492,7 @@ with tab7:
 
   with col1:
 #     st.write("TBD")
-    fig = px.histogram(df_, x = 'Date', y='Amount', color="Workspace Name", template = 'seaborn', barmode='group')
+    fig = px.histogram(df_, x = 'Date', y='Amount', color="Workspace_Name", template = 'seaborn', barmode='group')
     fig.update_layout(title_text="MoM Expense by Workspace",
                       yaxis_title="Amount", xaxis_title="Month")
     col1.plotly_chart(fig, use_container_width=True) 
