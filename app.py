@@ -444,7 +444,6 @@ with tab6:
     data=transfers_short_.groupby(['squad'], dropna=False).sum()
     data=data.sort_values(by=['Amount'], ascending=False)
     labels = data.index
-    st.write(labels)
     data=data['Amount']
     st.write(data)
 
