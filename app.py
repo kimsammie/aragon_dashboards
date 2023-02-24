@@ -457,7 +457,7 @@ with tab6:
 
   # display raw data
   fig = go.Figure(data=[go.Table(
-      header=dict(values=list('Month', 'Amount', 'Squad'),
+      header=dict(values=list('Month', 'Amount', 'squad'),
                   fill_color='#264653',
                   font_color="white",
                   align='left'),
