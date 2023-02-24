@@ -443,7 +443,7 @@ with tab6:
     transfers_short_=transfers_short[['squad', 'Amount']].copy()
     data=transfers_short_.groupby(['squad'], dropna=False).sum()
     data=data.sort_values(by=['Amount'], ascending=False)
-    labels = transfers_short_['squad'].unique().tolist()
+    labels = data['squad'].unique().tolist()
     st.write(labels)
     data=data['Amount']
     st.write(data)
