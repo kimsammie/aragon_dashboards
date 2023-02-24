@@ -476,7 +476,7 @@ with tab6:
 
 with tab7:
   st.header("Workspace Expenses Detail")
-  st.write("TBD")
+  st.write("Drill-down view of the expenses. Guild > Squad > Workspace")
   st.write("")
   st.write("")
   st.write("")
@@ -502,20 +502,20 @@ with tab7:
     res = g.apply(lambda x: x.sort_values(ascending=False).head(5))
     st.write(res)
 
-#   # display raw data
-#   fig = go.Figure(data=[go.Table(
-#       header=dict(values=list(df.columns),
-#                   fill_color='#264653',
-#                   font_color="white",
-#                   align='left'),
-#       cells=dict(values=[df.Squad, df.Category, df.Detail, df.Month, df.Amount],
-#                  fill_color='mintcream',
-#                  font_color="black",
-#                  align='left'))
-#   ])
+  # display raw data
+  fig = go.Figure(data=[go.Table(
+      header=dict(values=list(df_.columns),
+                  fill_color='#264653',
+                  font_color="white",
+                  align='left'),
+      cells=dict(values=[df_.Date, df_.Workspace Name, df_.Task Name, df_.Assignee, df_.Amount],
+                 fill_color='mintcream',
+                 font_color="black",
+                 align='left'))
+  ])
 
-#   fig.update_layout(title_text="Raw Expense Data",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
-#   st.plotly_chart(fig, use_container_width=True)      
+  fig.update_layout(title_text="Raw Expense Data",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
+  st.plotly_chart(fig, use_container_width=True)      
 
   
 with st.sidebar:
