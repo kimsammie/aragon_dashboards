@@ -497,24 +497,24 @@ with tab7:
     col1.plotly_chart(fig, use_container_width=True) 
     
   with col2:
-    st.write("Top 5 Contributors by Amount Paid")
+    st.write("**Top 5 Contributors by Amount Paid**")
     df_agg = df_.groupby(['Date','Assignee', 'Workspace_Name']).agg({'Amount':sum})
     g = df_agg['Amount'].groupby('Date', group_keys=False)
     res = g.apply(lambda x: x.sort_values(ascending=False).head(5))
-#     st.write(res)
-    fig = go.Figure(data=[go.Table(
-    header=dict(values=['Date', 'Assignee', 'Workspace_Name', 'Amount'],
-                fill_color='#264653',
-                font_color="white",
-                align='left'),
-    cells=dict(values=[res.Date, res.Assignee, res.Workspace_Name, res.Amount],
-               fill_color='mintcream',
-               font_color="black",
-               align='left'))
-])
+    st.write(res)
+#     fig = go.Figure(data=[go.Table(
+#     header=dict(values=['Date', 'Assignee', 'Workspace_Name', 'Amount'],
+#                 fill_color='#264653',
+#                 font_color="white",
+#                 align='left'),
+#     cells=dict(values=[res.Date, res.Assignee, res.Workspace_Name, res.Amount],
+#                fill_color='mintcream',
+#                font_color="black",
+#                align='left'))
+# ])
 
-    fig.update_layout(title_text="Raw Expense Data",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
-    st.plotly_chart(fig, use_container_width=True)     
+#     fig.update_layout(title_text="Raw Expense Data",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
+#     st.plotly_chart(fig, use_container_width=True)     
 
   # display raw data
   fig = go.Figure(data=[go.Table(
