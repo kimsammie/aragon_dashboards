@@ -440,7 +440,7 @@ with tab6:
   col1, col2 = st.columns((1.5,1))
 
   with col1:
-    fig = px.histogram(transfers_short, x = 'executionDate', y='Amount', color="squad", template = 'seaborn', barmode='group')
+    fig = px.histogram(transfers_short, x = 'Month', y='Amount', color="squad", template = 'seaborn', barmode='group')
     fig.update_layout(title_text="MoM Expense by Squad",
                       yaxis_title="Amount", xaxis_title="Month")
     col1.plotly_chart(fig, use_container_width=True) 
