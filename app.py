@@ -477,6 +477,7 @@ with tab6:
 with tab7:
   st.header("Workspace Expenses Detail")
   st.write("Drill-down view of the expenses. Guild > Squad > Workspace")
+  st.write("Contributor level or any other detail can be available via permission-based access")
   st.write("")
   st.write("")
   st.write("")
