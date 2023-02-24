@@ -333,7 +333,7 @@ with tab4:
 with tab5:
   st.header("Admin Input")
   st.write('Multiple files can be uploaded, processed and standardized.')
-  st.write('Select the source of your financial data:')
+  st.write('Select the sources of your financial data:')
   option_1 = st.checkbox('Gnosis')
   if option_1:
     text_input1 = st.text_input(
