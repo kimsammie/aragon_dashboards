@@ -499,7 +499,7 @@ with tab7:
     
   with col2:
     st.write("Top 5 Contributors by Amount Paid")
-    df_agg = df_.groupby(['Date','Assignee', 'Workspace Name']).agg({'Amount':sum})
+    df_agg = df_.groupby(['Date','Assignee', 'Workspace_Name']).agg({'Amount':sum})
     g = df_agg['Amount'].groupby('Date', group_keys=False)
     res = g.apply(lambda x: x.sort_values(ascending=False).head(5))
     st.write(res)
