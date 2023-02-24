@@ -445,8 +445,6 @@ with tab6:
     data=data.sort_values(by=['Amount'], ascending=False)
     labels = data.index
     data=data['Amount']
-    st.write(data)
-
 
     fig = px.pie(transfers_short_, values=data, names=labels, template = 'seaborn')
 
