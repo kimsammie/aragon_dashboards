@@ -428,6 +428,7 @@ with tab6:
   transfers_short = transfers[['executionDate', 'Amount', 'squad']]
   transfers_short['Amount'] = transfers_short['Amount'].round()
   transfers_short['Month'] = pd.to_datetime(transfers_short['executionDate']).apply(lambda x: x.strftime('%Y-%m')) 
+  transfers_short.squad = transfers_short.squad.fillna('null')
   st.write(transfers_short.head())
   
   col1, col2 = st.columns((1.5,1))
