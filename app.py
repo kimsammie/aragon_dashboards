@@ -363,7 +363,7 @@ with tab5:
 
 with tab6:
   st.header("OpEx from Admin Input")
-  st.write("A custom UI that displays components of expenses, trends and breakdowns all seamlessly off of files or data feeds.")
+  st.write("The below data was pulled directly from Gnosis Safe for Ops Guild. Additional Guilds and expense categories can be added.")
   st.write("")
   st.write("")
   st.write("")
