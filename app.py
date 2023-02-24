@@ -485,7 +485,7 @@ with tab7:
   df_=df[df['Amount'].notnull()]
   
   df_['Date']  = pd.to_datetime(df_['Date']).apply(lambda x: x.strftime('%Y-%m')) 
-  df_.rename(columns={"Workspace Name": "Workspace_Name", "Task Name": "Task_Name"})
+  df_ = df_.rename(columns={"Workspace Name": "Workspace_Name", "Task Name": "Task_Name"})
   st.write(list(df_.columns))
 
   col1, col2 = st.columns((1,1))
