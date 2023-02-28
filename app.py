@@ -716,6 +716,39 @@ stop_words.extend(
             "subject",
         ]
     )
+data = retrieve_messages1(channel_num)
+df = pd.DataFrame(data)
+df.sort_values("timestamp", ascending=False, inplace=True)
+df.timestamp = pd.to_datetime(df.timestamp)
+
+while len(df) < 1500:  # or use before/after timestamp
+        latestid = df.tail(1)["id"].values[0]
+        newdata = retrieve_messages2(channel_num, latestid)
+        df1 = pd.DataFrame(newdata)
+        df1.timestamp = pd.to_datetime(df1.timestamp)
+        df = pd.concat([df, df1])  # expand the database
+        df.sort_values("timestamp", ascending=False, inplace=True)
+latestdate = df.tail(1)["timestamp"].values[0]
+
+df = df.reset_index(drop=True)  # if not set to a variable it won't reset
+
+latestdate = pd.to_datetime(latestdate).date()
+earliestdate = latestdate + dt.timedelta(days=7)
+
+df["timestamp"] = df["timestamp"].dt.date
+start_date = pd.to_datetime(start_date_ofweek).date()
+end_date = pd.to_datetime(end_date_ofweek).date()
+one_week = (df["timestamp"] > start_date) & (df["timestamp"] <= end_date)
+df_1wk = df.loc[one_week]
+num_msgs = len(df_1wk)
+
+st.write("**Note: the earliest date available:", earliestdate)
+
+st.write("Start date:", start_date_ofweek)
+st.write("End date:", end_date_ofweek)
+st.write("Number of messages for the week:", len(df_1wk))
+
+st.write("Number of Topics:", int(numberof_topics))
 
 with st.sidebar:
 #     st.write("Choose the time period")
