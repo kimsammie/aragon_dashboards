@@ -584,7 +584,19 @@ end_date_ofweek = st.date_input(
 new_title = '<p style="font-family:sans-serif; color:Red; font-size: 42px;">**ERROR: Please choose the end date greater than the start date**</p>'
 if start_date_ofweek > end_date_ofweek:
 	st.markdown(new_title, unsafe_allow_html=True)
-    
+	
+selection = st.selectbox(
+"Choose the Discord channel",
+["Option 1: General", "Option 2: Intro", "Option 3: Questions"],
+)
+
+if selection == "Option 1: General":
+	channel_num = "672466989767458861"
+elif selection == "Option 2: Intro":
+	channel_num = "684539869502111755"
+elif selection == "Option 3: Questions":
+	channel_num = "694844628586856469"
+	
 with st.sidebar:
 #     st.write("Choose the time period")
     add_radio = st.radio(
