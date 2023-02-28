@@ -358,7 +358,7 @@ with tab5:
   option_1 = st.checkbox('Gnosis')
   if option_1:
     text_input1 = st.text_input(
-    "Enter the wallet address 👇",
+    "Enter the wallet address 👇", '0x29675e48606cF67603D501B85496AC7a842dABC3'
 #     "This is a placeholder",
 #     key="placeholder",
     )
