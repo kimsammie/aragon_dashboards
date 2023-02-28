@@ -750,6 +750,243 @@ st.write("Number of messages for the week:", len(df_1wk))
 
 st.write("Number of Topics:", int(numberof_topics))
 
+lemmatizer = WordNetLemmatizer()
+
+    # Tokenize Sentences and Clean
+def sent_to_words(sentences):
+	for sent in sentences:
+            sent = re.sub("\S*@\S*\s?", "", sent)  # remove emails
+            sent = re.sub("\s+", " ", sent)  # remove newline chars
+            sent = re.sub("'", "", sent)  # remove single quotes
+            sent = gensim.utils.simple_preprocess(
+                str(sent), deacc=True
+            )  # split the sentence into a list of words. deacc=True option removes punctuations
+            sent = [lemmatizer.lemmatize(w) for w in sent]
+            yield (sent)
+
+# Convert to list
+data = df_1wk.content.values.tolist()
+data_words = list(sent_to_words(data))
+
+texts_out = [
+        [word for word in simple_preprocess(str(doc)) if word not in stop_words]
+        for doc in data_words
+    ]
+data_ready = texts_out
+
+original_sentences = []
+data_ready2 = []
+for i in range(len(data_ready)):
+	if len(data_ready[i]) > 3:
+            data_ready2.append(data_ready[i])
+            original_sentences.append(data_words[i])
+data_ready = data_ready2
+# build the topic model
+# To build the LDA topic model using LdaModel(), need the corpus and the dictionary.
+# Create Dictionary
+id2word = corpora.Dictionary(data_ready)
+
+# Create Corpus: Term Document Frequency
+corpus = [id2word.doc2bow(text) for text in data_ready]
+
+# Build LDA model
+lda_model = gensim.models.ldamodel.LdaModel(
+        corpus=corpus,
+        id2word=id2word,
+        num_topics=int(numberof_topics),
+        random_state=100,  # this serves as a seed (to repeat the training process)
+        update_every=1,  # update the model every update_every chunksize chunks (essentially, this is for memory consumption optimization)
+        chunksize=10,  # number of documents to consider at once (affects the memory consumption)
+        passes=10,  # how many times the algorithm is supposed to pass over the whole corpus
+        alpha="symmetric",  # `‘asymmetric’ and ‘auto’: the former uses a fixed normalized asymmetric 1.0/topicno prior, the latter learns an asymmetric prior directly from your data.
+        iterations=100,
+        per_word_topics=True,
+    )  # setting this to True allows for extraction of the most likely topics given a word.
+    # The training process is set in such a way that every word will be assigned to a topic. Otherwise, words that are not indicative are going to be omitted.
+    # phi_value is another parameter that steers this process - it is a threshold for a word treated as indicative or not.
+
+pprint(lda_model.print_topics())  # The trained topics (keywords and weights)
+
+def format_topics_sentences(ldamodel=None, corpus=corpus, texts=data):
+        # Init output
+	sent_topics_df = pd.DataFrame()
+
+        # Get main topic in each document
+        for i, row_list in enumerate(ldamodel[corpus]):
+            row = row_list[0] if ldamodel.per_word_topics else row_list
+            # print(row)
+            row = sorted(row, key=lambda x: (x[1]), reverse=True)
+            # Get the Dominant topic, Perc Contribution and Keywords for each document
+            for j, (topic_num, prop_topic) in enumerate(row):
+                if j == 0:  # => dominant topic
+                    wp = ldamodel.show_topic(topic_num)
+                    topic_keywords = ", ".join([word for word, prop in wp])
+                    sent_topics_df = sent_topics_df.append(
+                        pd.Series(
+                            [int(topic_num), round(prop_topic, 4), topic_keywords]
+                        ),
+                        ignore_index=True,
+                    )
+                else:
+                    break
+        sent_topics_df.columns = [
+            "Dominant_Topic",
+            "Perc_Contribution",
+            "Topic_Keywords",
+        ]
+
+        # Add original text to the end of the output
+        contents = pd.Series(texts)
+        sent_topics_df = pd.concat([sent_topics_df, contents], axis=1)
+        return sent_topics_df
+
+df_topic_sents_keywords = format_topics_sentences(
+ldamodel=lda_model, corpus=corpus, texts=data_ready
+)
+
+# Format
+df_dominant_topic = df_topic_sents_keywords.reset_index()
+df_dominant_topic.columns = [
+        "Document_No",
+        "Dominant_Topic",
+        "Topic_Perc_Contrib",
+        "Keywords",
+        "Text",
+    ]
+df_dominant_topic.head(10)
+
+# the most representative sentence for each topic
+
+# Get samples of sentences that most represent a given topic.
+# Display setting to show more characters in column
+pd.options.display.max_colwidth = 100
+
+sent_topics_sorteddf_mallet = pd.DataFrame()
+sent_topics_outdf_grpd = df_topic_sents_keywords.groupby("Dominant_Topic")
+
+for i, grp in sent_topics_outdf_grpd:
+        sent_topics_sorteddf_mallet = pd.concat(
+            [
+                sent_topics_sorteddf_mallet,
+                grp.sort_values(["Perc_Contribution"], ascending=False).head(1),
+            ],
+            axis=0,
+        )
+
+# Reset Index
+sent_topics_sorteddf_mallet.reset_index(drop=True, inplace=True)
+
+# Format
+sent_topics_sorteddf_mallet.columns = [
+	"Topic_Num",
+	"Topic_Perc_Contrib",
+	"Keywords",
+	"Representative Text",
+	]
+
+# Show
+sent_topics_sorteddf_mallet.head(10)
+
+# a word cloud with the size of the words proportional to the weight
+# 1. Wordcloud of Top N words in each topic
+
+# from wordcloud import WordCloud, STOPWORDS
+
+cols = [
+        color for name, color in mcolors.TABLEAU_COLORS.items()
+    ]  # more colors: 'mcolors.XKCD_COLORS'
+
+cloud = WordCloud(
+        stopwords=stop_words,
+        background_color="white",
+        width=2500,
+        height=1800,
+        max_words=10,
+        colormap="tab10",
+        color_func=lambda *args, **kwargs: cols[i],
+        prefer_horizontal=1.0,
+    )
+
+topics = lda_model.show_topics(formatted=False)	
+    
+fig, axes = plt.subplots(
+        1, int(numberof_topics), figsize=(10, 10), sharex=True, sharey=True
+    )  # nrows, ncols
+
+for i, ax in enumerate(axes.flatten()):
+        fig.add_subplot(ax)
+        topic_words = dict(topics[i][1])
+        cloud.generate_from_frequencies(topic_words, max_font_size=300)
+        plt.gca().imshow(cloud)
+        plt.gca().set_title("Topic " + str(i + 1), fontdict=dict(size=16))
+        plt.gca().axis("off")
+
+plt.subplots_adjust(wspace=0, hspace=0)
+plt.axis("off")
+plt.margins(x=0, y=0)
+plt.tight_layout()
+plt.show()
+st.pyplot(fig)
+
+polarity = []
+sentiment_sentence = []
+subjectivity = []
+original_sentence = []
+token_sentiments = []
+
+for sentence in df_1wk.content:
+        # st.write('sentence', sentence)
+        # st.write('df_1wk.content', df_1wk.content)
+        try:
+            sentiment = TextBlob(sentence).sentiment
+            # st.write('sentiment', sentiment)
+            # token_sentiments = analyze_token_sentiment(sentence)
+            # st.write('token_sentiments', token_sentiments)
+            if sentiment.polarity > 0:
+                polarity.append(sentiment.polarity)
+                sentiment_sentence.append("Positive")
+                subjectivity.append(sentiment.subjectivity)
+                original_sentence.append(sentence)
+                # token_sentiments.append(token_sentiments)
+
+            elif sentiment.polarity < 0:
+                polarity.append(sentiment.polarity)
+                sentiment_sentence.append("Negative")
+                subjectivity.append(sentiment.subjectivity)
+                original_sentence.append(sentence)
+                # token_sentiments.append(token_sentiments)
+
+            else:
+                polarity.append(sentiment.polarity)
+		subjectivity.append(sentiment.subjectivity)
+                original_sentence.append(sentence)
+                # token_sentiments.append(token_sentiments)
+
+        except:
+            pass
+
+sentiment_df_test = pd.DataFrame()
+sentiment_df_test["polarity"] = polarity
+sentiment_df_test["sentiment"] = sentiment_sentence
+sentiment_df_test["original_sentence"] = original_sentence
+
+# sentiment_df_test['subjectivity']=subjectivity
+# sentiment_df_test['token_sentiments']=token_sentiments
+
+sentiment_counts = sentiment_df_test.groupby(["sentiment"]).size()
+st.write("Sentiment Counts:", sentiment_counts)
+
+# visualize the sentiments
+fig = plt.figure(figsize=(6, 6), dpi=100)
+ax = plt.subplot(111)
+sentiment_counts.plot.pie(
+ax=ax, autopct="%1.1f%%", startangle=270, fontsize=12, label=""
+)
+st.pyplot(fig)
+
+# st.write('Sentiment for the Actual Messages:', sentiment_df_test[['sentiment','original_sentence']])
+st.write("Actual Messages:", df_1wk["content"])	
+
 with st.sidebar:
 #     st.write("Choose the time period")
     add_radio = st.radio(
