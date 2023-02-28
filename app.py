@@ -569,21 +569,21 @@ with tab8:
 
 #     )
 
-    # creating two functions as discord seems to take only one request i.e., either limit or before/after message id
-    # below is authorization from my discord login
+# creating two functions as discord seems to take only one request i.e., either limit or before/after message id
+# below is authorization from my discord login
 
-    # st.sidebar.write('Choose a week')
-    start_date_ofweek = st.date_input(
-        "Enter the start date (e.g., 2022/02/21)",
-        value=dt.datetime.now() - dt.timedelta(days=7),
-    )  # datetime.date format
-    end_date_ofweek = st.date_input(
-        "Enter the end date (e.g., 2022/02/28)", value=dt.datetime.now()
-    )
+# st.sidebar.write('Choose a week')
+start_date_ofweek = st.date_input(
+"Enter the start date (e.g., 2022/02/21)",
+value=dt.datetime.now() - dt.timedelta(days=7),
+)  # datetime.date format
+end_date_ofweek = st.date_input(
+"Enter the end date (e.g., 2022/02/28)", value=dt.datetime.now()
+)
 
-    new_title = '<p style="font-family:sans-serif; color:Red; font-size: 42px;">**ERROR: Please choose the end date greater than the start date**</p>'
-    if start_date_ofweek > end_date_ofweek:
-        st.markdown(new_title, unsafe_allow_html=True)
+new_title = '<p style="font-family:sans-serif; color:Red; font-size: 42px;">**ERROR: Please choose the end date greater than the start date**</p>'
+if start_date_ofweek > end_date_ofweek:
+st.markdown(new_title, unsafe_allow_html=True)
     
 with st.sidebar:
 #     st.write("Choose the time period")
