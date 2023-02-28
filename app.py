@@ -12,6 +12,26 @@ from requests import request
 import json
 from collections import Counter
 from datetime import datetime
+import numpy as np
+import requests
+import datetime as dt
+import re
+import gensim
+import gensim.corpora as corpora
+from gensim.utils import simple_preprocess
+import nltk
+from nltk.corpus import stopwords
+nltk.download("stopwords")
+from nltk import *
+from nltk.corpus import wordnet
+nltk.download("wordnet")
+from nltk.stem.wordnet import WordNetLemmatizer
+nltk.download("omw-1.4")
+from nltk.stem import WordNetLemmatizer
+# from matplotlib import pyplot as plt
+from wordcloud import WordCloud
+import matplotlib.colors as mcolors
+from textblob import TextBlob
 
 st.set_page_config(layout="wide")
 
@@ -20,8 +40,8 @@ st.title("Acme Financial Reporting")
 st.write("")
 st.write("")
 
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["📈 OpEx", "Revenue", "Income Statement", "Balance Sheet", "Admin Input", 
-                                                    "OpEx from Admin Input", "Workspace Expenses Detail"])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(["📈 OpEx", "Revenue", "Income Statement", "Balance Sheet", "Admin Input", 
+                                                    "OpEx from Admin Input", "Workspace Expenses Detail", "Discord Community Sentiment"])
 
 with tab1:
   st.header("Operating Expense")
