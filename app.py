@@ -42,7 +42,7 @@ st.write("")
 
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(["📈 OpEx", "Revenue", "Income Statement", "Balance Sheet", "Admin Input", 
                                                     "OpEx from Admin Input", "Workspace Expenses Detail", 
-                                                    "Discord Channel Topics Discussed by the Community"])
+                                                    "Discord Channel Topics"])
 
 with tab1:
   st.header("Operating Expense")
