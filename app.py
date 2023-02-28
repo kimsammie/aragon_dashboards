@@ -41,7 +41,8 @@ st.write("")
 st.write("")
 
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(["📈 OpEx", "Revenue", "Income Statement", "Balance Sheet", "Admin Input", 
-                                                    "OpEx from Admin Input", "Workspace Expenses Detail", "Discord Community Sentiment"])
+                                                    "OpEx from Admin Input", "Workspace Expenses Detail", 
+                                                    "Discord Channel Topics Discussed by the Community"])
 
 with tab1:
   st.header("Operating Expense")
@@ -547,7 +548,28 @@ with tab7:
   fig.update_layout(title_text="Raw Expense Data",title_font_color = '#264653',title_x=0,margin= dict(l=0,r=10,b=10,t=30), height=400)                                                               
   st.plotly_chart(fig, use_container_width=True)      
 
-  
+with tab8:
+  st.header("Discord Channel Topics Discussed by the Community")
+  st.write("""
+	<br><br/>
+	
+	Using topic modeling, we can extract the "hidden topics" from large volumes of messages in Aragon Discord channels. 
+	
+	Please see the most popular topics discussed for a given time period by first selecting the start date and end date for a channel of your interest.	
+	
+	After that, try different number of topics (e.g., a higher number for a longer time period) until you see coherent topics (i.e., words in the topic support each other). 
+	
+	At the bottom, please also check out the overall sentiment found in the messages for the chosen time period. 
+	
+	"""
+  st.write('Select the sources of your financial data:')
+  option_1 = st.checkbox('Gnosis')
+  if option_1:
+    text_input1 = st.text_input(
+    "Enter the wallet address 👇"
+
+    )
+    
 with st.sidebar:
 #     st.write("Choose the time period")
     add_radio = st.radio(
