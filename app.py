@@ -551,9 +551,8 @@ with tab7:
 with tab8:
   st.header("Discord Channel Topics Discussed by the Community")
   st.write("""
-	<br><br/>
-	
-	Using topic modeling, we can extract the "hidden topics" from large volumes of messages in Aragon Discord channels. 
+
+	Using topic modeling, we can extract the "hidden topics" from large volumes of messages in Discord channels. 
 	
 	Please see the most popular topics discussed for a given time period by first selecting the start date and end date for a channel of your interest.	
 	
@@ -562,13 +561,29 @@ with tab8:
 	At the bottom, please also check out the overall sentiment found in the messages for the chosen time period. 
 	
 	""")
-  st.write('Select the sources of your financial data:')
-  option_1 = st.checkbox('Gnosis')
-  if option_1:
-    text_input1 = st.text_input(
-    "Enter the wallet address 👇"
+#   st.write('Select the sources of your financial data:')
+#   option_1 = st.checkbox('Gnosis')
+#   if option_1:
+#     text_input1 = st.text_input(
+#     "Enter the wallet address 👇"
 
+#     )
+
+    # creating two functions as discord seems to take only one request i.e., either limit or before/after message id
+    # below is authorization from my discord login
+
+    # st.sidebar.write('Choose a week')
+    start_date_ofweek = st.date_input(
+        "Enter the start date (e.g., 2022/02/21)",
+        value=dt.datetime.now() - dt.timedelta(days=7),
+    )  # datetime.date format
+    end_date_ofweek = st.date_input(
+        "Enter the end date (e.g., 2022/02/28)", value=dt.datetime.now()
     )
+
+    new_title = '<p style="font-family:sans-serif; color:Red; font-size: 42px;">**ERROR: Please choose the end date greater than the start date**</p>'
+    if start_date_ofweek > end_date_ofweek:
+        st.markdown(new_title, unsafe_allow_html=True)
     
 with st.sidebar:
 #     st.write("Choose the time period")
