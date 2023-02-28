@@ -561,7 +561,7 @@ with tab8:
 	
 	At the bottom, please also check out the overall sentiment found in the messages for the chosen time period. 
 	
-	"""
+	""")
   st.write('Select the sources of your financial data:')
   option_1 = st.checkbox('Gnosis')
   if option_1:
