@@ -583,7 +583,7 @@ end_date_ofweek = st.date_input(
 
 new_title = '<p style="font-family:sans-serif; color:Red; font-size: 42px;">**ERROR: Please choose the end date greater than the start date**</p>'
 if start_date_ofweek > end_date_ofweek:
-st.markdown(new_title, unsafe_allow_html=True)
+	st.markdown(new_title, unsafe_allow_html=True)
     
 with st.sidebar:
 #     st.write("Choose the time period")
