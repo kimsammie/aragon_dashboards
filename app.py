@@ -597,6 +597,126 @@ elif selection == "Option 2: Intro":
 elif selection == "Option 3: Questions":
 	channel_num = "694844628586856469"
 	
+numberof_topics = st.sidebar.number_input(
+	"Enter the number of topics (2 to 10):",
+	min_value=2,
+	max_value=10,
+	value=2,
+	step=1,
+	)
+
+def retrieve_messages1(channelid):
+	# payload={'page':2, 'count':100} # this with 'params=payload' doesn't work
+	r = requests.get(
+	    f"https://devops-server.aragon.org/discord/channel/messages?channelId={channelid}&limit=100"
+	)
+	jsonn = json.loads(r.text)
+	return jsonn
+
+def retrieve_messages2(channelid, messageid):
+	r = requests.get(
+	    f"https://devops-server.aragon.org/discord/channel/messages?channelId={channelid}&before={messageid}"
+	)
+	jsonn = json.loads(r.text)
+	return jsonn
+
+# NLTK Stop words
+# from nltk.corpus import stopwords
+
+stop_words = stopwords.words("english")
+stop_words.extend(
+        [
+            "you",
+            "me",
+            "guy",
+            "guys",
+            "im",
+            "us",
+            "someone",
+            "hi",
+            "hello",
+            "hey",
+            "thanks",
+            "thank",
+            "thx",
+            "yes",
+            "no",
+            "ohh",
+            "ha",
+            "what",
+            "would",
+            "might",
+            "could",
+            "maybe",
+            "may",
+            "theres",
+            "there",
+            "here",
+            "do",
+            "does",
+            "done",
+            "be",
+            "also",
+            "still",
+            "able",
+            "since",
+            "yet",
+            "it",
+            "many",
+            "some",
+            "rather",
+            "make",
+            "to",
+            "and",
+            "let",
+            "please",
+            "like",
+            "not",
+            "from",
+            "ever",
+            "try",
+            "trying",
+            "nice",
+            "think",
+            "thinking" "see",
+            "seeing",
+            "easy",
+            "easily",
+            "lot",
+            "use",
+            "using",
+            "go",
+            "going",
+            "say",
+            "said",
+            "set",
+            "want",
+            "seem",
+            "run",
+            "need",
+            "even",
+            "right",
+            "line",
+            "take",
+            "come",
+            "look",
+            "looking",
+            "prob",
+            "one",
+            "feel",
+            "way",
+            "sure",
+            "know",
+            "get",
+            "https",
+            "http",
+            "com",
+            "etc",
+            "daos",
+            "subject",
+        ]
+    )
+
 with st.sidebar:
 #     st.write("Choose the time period")
     add_radio = st.radio(
