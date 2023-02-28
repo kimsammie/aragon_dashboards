@@ -958,7 +958,8 @@ for sentence in df_1wk.content:
 
             else:
                 polarity.append(sentiment.polarity)
-		subjectivity.append(sentiment.subjectivity)
+                sentiment_sentence.append("Neutral")
+                subjectivity.append(sentiment.subjectivity)
                 original_sentence.append(sentence)
                 # token_sentiments.append(token_sentiments)
 
