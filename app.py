@@ -828,7 +828,7 @@ def format_topics_sentences(ldamodel=None, corpus=corpus, texts=data):
                         ignore_index=True,
                     )
 	       else:
-		    break
+                    break
 	sent_topics_df.columns = [
 	    "Dominant_Topic",
 	    "Perc_Contribution",
