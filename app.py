@@ -911,12 +911,12 @@ with tab8:
     )  # nrows, ncols
 
   for i, ax in enumerate(axes.flatten()):
-	fig.add_subplot(ax)
-	topic_words = dict(topics[i][1])
-	cloud.generate_from_frequencies(topic_words, max_font_size=300)
-	plt.gca().imshow(cloud)
-	plt.gca().set_title("Topic " + str(i + 1), fontdict=dict(size=16))
-	plt.gca().axis("off")
+        fig.add_subplot(ax)
+        topic_words = dict(topics[i][1])
+        cloud.generate_from_frequencies(topic_words, max_font_size=300)
+        plt.gca().imshow(cloud)
+        plt.gca().set_title("Topic " + str(i + 1), fontdict=dict(size=16))
+        plt.gca().axis("off")
 
   plt.subplots_adjust(wspace=0, hspace=0)
   plt.axis("off")
@@ -925,65 +925,67 @@ with tab8:
   plt.show()
   st.pyplot(fig)
 
+    # test = pd.DataFrame(df_1wk['content'])
+
   polarity = []
   sentiment_sentence = []
   subjectivity = []
   original_sentence = []
   token_sentiments = []
 
-	for sentence in df_1wk.content:
-		# st.write('sentence', sentence)
-		# st.write('df_1wk.content', df_1wk.content)
-		try:
-		    sentiment = TextBlob(sentence).sentiment
-		    # st.write('sentiment', sentiment)
-		    # token_sentiments = analyze_token_sentiment(sentence)
-		    # st.write('token_sentiments', token_sentiments)
-		    if sentiment.polarity > 0:
-			polarity.append(sentiment.polarity)
-			sentiment_sentence.append("Positive")
-			subjectivity.append(sentiment.subjectivity)
-			original_sentence.append(sentence)
-			# token_sentiments.append(token_sentiments)
+  for sentence in df_1wk.content:
+        # st.write('sentence', sentence)
+        # st.write('df_1wk.content', df_1wk.content)
+        try:
+            sentiment = TextBlob(sentence).sentiment
+            # st.write('sentiment', sentiment)
+            # token_sentiments = analyze_token_sentiment(sentence)
+            # st.write('token_sentiments', token_sentiments)
+            if sentiment.polarity > 0:
+                polarity.append(sentiment.polarity)
+                sentiment_sentence.append("Positive")
+                subjectivity.append(sentiment.subjectivity)
+                original_sentence.append(sentence)
+                # token_sentiments.append(token_sentiments)
 
-		    elif sentiment.polarity < 0:
-			polarity.append(sentiment.polarity)
-			sentiment_sentence.append("Negative")
-			subjectivity.append(sentiment.subjectivity)
-			original_sentence.append(sentence)
-			# token_sentiments.append(token_sentiments)
+            elif sentiment.polarity < 0:
+                polarity.append(sentiment.polarity)
+                sentiment_sentence.append("Negative")
+                subjectivity.append(sentiment.subjectivity)
+                original_sentence.append(sentence)
+                # token_sentiments.append(token_sentiments)
 
-		    else:
-			polarity.append(sentiment.polarity)
-			sentiment_sentence.append("Neutral")
-			subjectivity.append(sentiment.subjectivity)
-			original_sentence.append(sentence)
-			# token_sentiments.append(token_sentiments)
+            else:
+                polarity.append(sentiment.polarity)
+                sentiment_sentence.append("Neutral")
+                subjectivity.append(sentiment.subjectivity)
+                original_sentence.append(sentence)
+                # token_sentiments.append(token_sentiments)
 
-		except:
-		    pass
+        except:
+            pass
 
-	sentiment_df_test = pd.DataFrame()
-	sentiment_df_test["polarity"] = polarity
-	sentiment_df_test["sentiment"] = sentiment_sentence
-	sentiment_df_test["original_sentence"] = original_sentence
+  sentiment_df_test = pd.DataFrame()
+  sentiment_df_test["polarity"] = polarity
+  sentiment_df_test["sentiment"] = sentiment_sentence
+  sentiment_df_test["original_sentence"] = original_sentence
 
-	# sentiment_df_test['subjectivity']=subjectivity
-	# sentiment_df_test['token_sentiments']=token_sentiments
+# sentiment_df_test['subjectivity']=subjectivity
+# sentiment_df_test['token_sentiments']=token_sentiments
 
-	sentiment_counts = sentiment_df_test.groupby(["sentiment"]).size()
-	st.write("Sentiment Counts:", sentiment_counts)
+  sentiment_counts = sentiment_df_test.groupby(["sentiment"]).size()
+  st.write("Sentiment Counts:", sentiment_counts)
 
-	# visualize the sentiments
-	fig = plt.figure(figsize=(6, 6), dpi=100)
-	ax = plt.subplot(111)
-	sentiment_counts.plot.pie(
-	ax=ax, autopct="%1.1f%%", startangle=270, fontsize=12, label=""
-	)
-	st.pyplot(fig)
+# visualize the sentiments
+  fig = plt.figure(figsize=(6, 6), dpi=100)
+  ax = plt.subplot(111)
+  sentiment_counts.plot.pie(
+  ax=ax, autopct="%1.1f%%", startangle=270, fontsize=12, label=""
+   )
+  st.pyplot(fig)
 
-	# st.write('Sentiment for the Actual Messages:', sentiment_df_test[['sentiment','original_sentence']])
-	st.write("Actual Messages:", df_1wk["content"])	
+# st.write('Sentiment for the Actual Messages:', sentiment_df_test[['sentiment','original_sentence']])
+  st.write("Actual Messages:", df_1wk["content"])	
 
 with st.sidebar:
 #     st.write("Choose the time period")
