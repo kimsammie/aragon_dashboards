@@ -827,15 +827,15 @@ with tab8:
                     break
 			
 	sent_topics_df.columns = [
-	    "Dominant_Topic",
-	    "Perc_Contribution",
-	    "Topic_Keywords",
-	]
+            "Dominant_Topic",
+            "Perc_Contribution",
+            "Topic_Keywords",
+        ]
 
-	# Add original text to the end of the output
-	contents = pd.Series(texts)
-	sent_topics_df = pd.concat([sent_topics_df, contents], axis=1)
-	return sent_topics_df
+        # Add original text to the end of the output
+        contents = pd.Series(texts)
+        sent_topics_df = pd.concat([sent_topics_df, contents], axis=1)
+        return sent_topics_df
 
   df_topic_sents_keywords = format_topics_sentences(
 	ldamodel=lda_model, corpus=corpus, texts=data_ready
