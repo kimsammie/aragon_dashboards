@@ -804,27 +804,27 @@ with tab8:
   pprint(lda_model.print_topics())  # The trained topics (keywords and weights)
 
   def format_topics_sentences(ldamodel=None, corpus=corpus, texts=data):
-	#initial input
-	sent_topics_df = pd.DataFrame()
+        # Init output
+        sent_topics_df = pd.DataFrame()
 
-	# Get main topic in each document
-	for i, row_list in enumerate(ldamodel[corpus]):
-	    row = row_list[0] if ldamodel.per_word_topics else row_list
-	    # print(row)
-	    row = sorted(row, key=lambda x: (x[1]), reverse=True)
-	    # Get the Dominant topic, Perc Contribution and Keywords for each document
-	    for j, (topic_num, prop_topic) in enumerate(row):
-		if j == 0: # => dominant topic
-			wp = ldamodel.show_topic(topic_num)
-			topic_keywords = ", ".join([word for word, prop in wp])
-			sent_topics_df = sent_topics_df.append(
-				pd.Series(
-				    [int(topic_num), round(prop_topic, 4), topic_keywords]
-				),
-				ignore_index=True,
-			    )
-		else:
-			break
+        # Get main topic in each document
+        for i, row_list in enumerate(ldamodel[corpus]):
+            row = row_list[0] if ldamodel.per_word_topics else row_list
+            # print(row)
+            row = sorted(row, key=lambda x: (x[1]), reverse=True)
+            # Get the Dominant topic, Perc Contribution and Keywords for each document
+            for j, (topic_num, prop_topic) in enumerate(row):
+                if j == 0:  # => dominant topic
+                    wp = ldamodel.show_topic(topic_num)
+                    topic_keywords = ", ".join([word for word, prop in wp])
+                    sent_topics_df = sent_topics_df.append(
+                        pd.Series(
+                            [int(topic_num), round(prop_topic, 4), topic_keywords]
+                        ),
+                        ignore_index=True,
+                    )
+                else:
+                    break
 			
 	sent_topics_df.columns = [
 	    "Dominant_Topic",
