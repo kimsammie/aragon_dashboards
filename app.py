@@ -825,8 +825,7 @@ with tab8:
                     )
                 else:
                     break
-			
-	sent_topics_df.columns = [
+        sent_topics_df.columns = [
             "Dominant_Topic",
             "Perc_Contribution",
             "Topic_Keywords",
