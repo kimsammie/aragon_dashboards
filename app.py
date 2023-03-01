@@ -576,7 +576,7 @@ with tab8:
 
   new_title = '<p style="font-family:sans-serif; color:Red; font-size: 42px;">**ERROR: Please choose the end date greater than the start date**</p>'
   if start_date_ofweek > end_date_ofweek:
-	st.markdown(new_title, unsafe_allow_html=True)
+        st.markdown(new_title, unsafe_allow_html=True)
 
   selection = st.selectbox(
 		"Choose the Discord channel",
@@ -584,11 +584,11 @@ with tab8:
 		)
 
   if selection == "Option 1: General":
-	channel_num = "672466989767458861"
+        channel_num = "672466989767458861"
   elif selection == "Option 2: Intro":
-	channel_num = "684539869502111755"
+        channel_num = "684539869502111755"
   elif selection == "Option 3: Questions":
-	channel_num = "694844628586856469"
+        channel_num = "694844628586856469"
 
   numberof_topics = st.number_input(
 		"Enter the number of topics (2 to 10):",
