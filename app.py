@@ -597,7 +597,7 @@ elif selection == "Option 2: Intro":
 elif selection == "Option 3: Questions":
 	channel_num = "694844628586856469"
 	
-numberof_topics = st.sidebar.number_input(
+numberof_topics = st.number_input(
 	"Enter the number of topics (2 to 10):",
 	min_value=2,
 	max_value=10,
