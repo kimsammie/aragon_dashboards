@@ -811,7 +811,7 @@ with tab8:
 		    row = sorted(row, key=lambda x: (x[1]), reverse=True)
 		    # Get the Dominant topic, Perc Contribution and Keywords for each document
 		    for j, (topic_num, prop_topic) in enumerate(row):
-			if j == 0:  # => dominant topic
+			if j == 0: # => dominant topic
 				wp = ldamodel.show_topic(topic_num)
 				topic_keywords = ", ".join([word for word, prop in wp])
 				sent_topics_df = sent_topics_df.append(
