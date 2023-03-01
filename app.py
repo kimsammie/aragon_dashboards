@@ -549,437 +549,437 @@ with tab7:
   st.plotly_chart(fig, use_container_width=True)      
 
 with tab8:
-  st.header("Discord Channel Topics Discussed by the Community")
-  st.write("""
+	st.header("Discord Channel Topics Discussed by the Community")
+	st.write("""
 
 	Using topic modeling, we can extract the "hidden topics" from large volumes of messages in Discord channels. 
-	
+
 	Please see the most popular topics discussed for a given time period by first selecting the start date and end date for a channel of your interest.	
-	
+
 	After that, try different number of topics (e.g., a higher number for a longer time period) until you see coherent topics (i.e., words in the topic support each other). 
-	
+
 	At the bottom, please also check out the overall sentiment found in the messages for the chosen time period. 
-	
+
 	""")
 
-# creating two functions as discord seems to take only one request i.e., either limit or before/after message id
-# below is authorization from my discord login
+	# creating two functions as discord seems to take only one request i.e., either limit or before/after message id
+	# below is authorization from my discord login
 
-# st.sidebar.write('Choose a week')
-start_date_ofweek = st.date_input(
-	"Enter the start date (e.g., 2022/02/21)",
-	value=dt.datetime.now() - dt.timedelta(days=7),
-	)  # datetime.date format
-end_date_ofweek = st.date_input(
-	"Enter the end date (e.g., 2022/02/28)", value=dt.datetime.now()
+	# st.sidebar.write('Choose a week')
+	start_date_ofweek = st.date_input(
+		"Enter the start date (e.g., 2022/02/21)",
+		value=dt.datetime.now() - dt.timedelta(days=7),
+		)  # datetime.date format
+	end_date_ofweek = st.date_input(
+		"Enter the end date (e.g., 2022/02/28)", value=dt.datetime.now()
+		)
+
+	new_title = '<p style="font-family:sans-serif; color:Red; font-size: 42px;">**ERROR: Please choose the end date greater than the start date**</p>'
+	if start_date_ofweek > end_date_ofweek:
+		st.markdown(new_title, unsafe_allow_html=True)
+
+	selection = st.selectbox(
+		"Choose the Discord channel",
+		["Option 1: General", "Option 2: Intro", "Option 3: Questions"],
+		)
+
+	if selection == "Option 1: General":
+		channel_num = "672466989767458861"
+	elif selection == "Option 2: Intro":
+		channel_num = "684539869502111755"
+	elif selection == "Option 3: Questions":
+		channel_num = "694844628586856469"
+
+	numberof_topics = st.number_input(
+		"Enter the number of topics (2 to 10):",
+		min_value=2,
+		max_value=10,
+		value=2,
+		step=1,
+		)
+
+	def retrieve_messages1(channelid):
+		# payload={'page':2, 'count':100} # this with 'params=payload' doesn't work
+		r = requests.get(
+		    f"https://devops-server.aragon.org/discord/channel/messages?channelId={channelid}&limit=100"
+		)
+		jsonn = json.loads(r.text)
+		return jsonn
+
+	def retrieve_messages2(channelid, messageid):
+		r = requests.get(
+		    f"https://devops-server.aragon.org/discord/channel/messages?channelId={channelid}&before={messageid}"
+		)
+		jsonn = json.loads(r.text)
+		return jsonn
+
+	# NLTK Stop words
+	# from nltk.corpus import stopwords
+
+	stop_words = stopwords.words("english")
+	stop_words.extend(
+		[
+		    "you",
+		    "me",
+		    "guy",
+		    "guys",
+		    "im",
+		    "us",
+		    "someone",
+		    "hi",
+		    "hello",
+		    "hey",
+		    "thanks",
+		    "thank",
+		    "thx",
+		    "yes",
+		    "no",
+		    "ohh",
+		    "ha",
+		    "what",
+		    "would",
+		    "might",
+		    "could",
+		    "maybe",
+		    "may",
+		    "theres",
+		    "there",
+		    "here",
+		    "do",
+		    "does",
+		    "done",
+		    "be",
+		    "also",
+		    "still",
+		    "able",
+		    "since",
+		    "yet",
+		    "it",
+		    "many",
+		    "some",
+		    "rather",
+		    "make",
+		    "to",
+		    "and",
+		    "let",
+		    "please",
+		    "like",
+		    "not",
+		    "from",
+		    "ever",
+		    "try",
+		    "trying",
+		    "nice",
+		    "think",
+		    "thinking" "see",
+		    "seeing",
+		    "easy",
+		    "easily",
+		    "lot",
+		    "use",
+		    "using",
+		    "go",
+		    "going",
+		    "say",
+		    "said",
+		    "set",
+		    "want",
+		    "seem",
+		    "run",
+		    "need",
+		    "even",
+		    "right",
+		    "line",
+		    "take",
+		    "come",
+		    "look",
+		    "looking",
+		    "prob",
+		    "one",
+		    "feel",
+		    "way",
+		    "sure",
+		    "know",
+		    "get",
+		    "https",
+		    "http",
+		    "com",
+		    "etc",
+		    "daos",
+		    "subject",
+		]
+   	 )
+	data = retrieve_messages1(channel_num)
+	df = pd.DataFrame(data)
+	df.sort_values("timestamp", ascending=False, inplace=True)
+	df.timestamp = pd.to_datetime(df.timestamp)
+
+	while len(df) < 1500:  # or use before/after timestamp
+		latestid = df.tail(1)["id"].values[0]
+		newdata = retrieve_messages2(channel_num, latestid)
+		df1 = pd.DataFrame(newdata)
+		df1.timestamp = pd.to_datetime(df1.timestamp)
+		df = pd.concat([df, df1])  # expand the database
+		df.sort_values("timestamp", ascending=False, inplace=True)
+	latestdate = df.tail(1)["timestamp"].values[0]
+
+	df = df.reset_index(drop=True)  # if not set to a variable it won't reset
+
+	latestdate = pd.to_datetime(latestdate).date()
+	earliestdate = latestdate + dt.timedelta(days=7)
+
+	df["timestamp"] = df["timestamp"].dt.date
+	start_date = pd.to_datetime(start_date_ofweek).date()
+	end_date = pd.to_datetime(end_date_ofweek).date()
+	one_week = (df["timestamp"] > start_date) & (df["timestamp"] <= end_date)
+	df_1wk = df.loc[one_week]
+	num_msgs = len(df_1wk)
+
+	st.write("**Note: the earliest date available:", earliestdate)
+
+	st.write("Start date:", start_date_ofweek)
+	st.write("End date:", end_date_ofweek)
+	st.write("Number of messages for the week:", len(df_1wk))
+
+	st.write("Number of Topics:", int(numberof_topics))
+
+	lemmatizer = WordNetLemmatizer()
+
+	# Tokenize Sentences and Clean
+	def sent_to_words(sentences):
+		for sent in sentences:
+		    sent = re.sub("\S*@\S*\s?", "", sent)  # remove emails
+		    sent = re.sub("\s+", " ", sent)  # remove newline chars
+		    sent = re.sub("'", "", sent)  # remove single quotes
+		    sent = gensim.utils.simple_preprocess(
+			str(sent), deacc=True
+		    )  # split the sentence into a list of words. deacc=True option removes punctuations
+		    sent = [lemmatizer.lemmatize(w) for w in sent]
+		    yield (sent)
+
+	# Convert to list
+	data = df_1wk.content.values.tolist()
+	data_words = list(sent_to_words(data))
+
+	texts_out = [
+		[word for word in simple_preprocess(str(doc)) if word not in stop_words]
+		for doc in data_words
+	    ]
+	data_ready = texts_out
+
+	original_sentences = []
+	data_ready2 = []
+	for i in range(len(data_ready)):
+		if len(data_ready[i]) > 3:
+		    data_ready2.append(data_ready[i])
+		    original_sentences.append(data_words[i])
+	data_ready = data_ready2
+	# build the topic model
+	# To build the LDA topic model using LdaModel(), need the corpus and the dictionary.
+	# Create Dictionary
+	id2word = corpora.Dictionary(data_ready)
+
+	# Create Corpus: Term Document Frequency
+	corpus = [id2word.doc2bow(text) for text in data_ready]
+
+	# Build LDA model
+	lda_model = gensim.models.ldamodel.LdaModel(
+		corpus=corpus,
+		id2word=id2word,
+		num_topics=int(numberof_topics),
+		random_state=100,  # this serves as a seed (to repeat the training process)
+		update_every=1,  # update the model every update_every chunksize chunks (essentially, this is for memory consumption optimization)
+		chunksize=10,  # number of documents to consider at once (affects the memory consumption)
+		passes=10,  # how many times the algorithm is supposed to pass over the whole corpus
+		alpha="symmetric",  # `‘asymmetric’ and ‘auto’: the former uses a fixed normalized asymmetric 1.0/topicno prior, the latter learns an asymmetric prior directly from your data.
+		iterations=100,
+		per_word_topics=True,
+	    )  # setting this to True allows for extraction of the most likely topics given a word.
+	    # The training process is set in such a way that every word will be assigned to a topic. Otherwise, words that are not indicative are going to be omitted.
+	    # phi_value is another parameter that steers this process - it is a threshold for a word treated as indicative or not.
+
+	pprint(lda_model.print_topics())  # The trained topics (keywords and weights)
+
+	def format_topics_sentences(ldamodel=None, corpus=corpus, texts=data):
+	# Init output
+		sent_topics_df = pd.DataFrame()
+
+		# Get main topic in each document
+		for i, row_list in enumerate(ldamodel[corpus]):
+		    row = row_list[0] if ldamodel.per_word_topics else row_list
+		    # print(row)
+		    row = sorted(row, key=lambda x: (x[1]), reverse=True)
+		    # Get the Dominant topic, Perc Contribution and Keywords for each document
+		    for j, (topic_num, prop_topic) in enumerate(row):		
+		       if j == 0:  # => dominant topic
+			    wp = ldamodel.show_topic(topic_num)
+			    topic_keywords = ", ".join([word for word, prop in wp])
+			    sent_topics_df = sent_topics_df.append(
+				pd.Series(
+				    [int(topic_num), round(prop_topic, 4), topic_keywords]
+				),
+				ignore_index=True,
+			    )
+		       else:
+			    break
+		sent_topics_df.columns = [
+		    "Dominant_Topic",
+		    "Perc_Contribution",
+		    "Topic_Keywords",
+		]
+
+		# Add original text to the end of the output
+		contents = pd.Series(texts)
+		sent_topics_df = pd.concat([sent_topics_df, contents], axis=1)
+		return sent_topics_df
+
+	df_topic_sents_keywords = format_topics_sentences(
+	ldamodel=lda_model, corpus=corpus, texts=data_ready
 	)
 
-new_title = '<p style="font-family:sans-serif; color:Red; font-size: 42px;">**ERROR: Please choose the end date greater than the start date**</p>'
-if start_date_ofweek > end_date_ofweek:
-	st.markdown(new_title, unsafe_allow_html=True)
-	
-selection = st.selectbox(
-	"Choose the Discord channel",
-	["Option 1: General", "Option 2: Intro", "Option 3: Questions"],
+	# Format
+	df_dominant_topic = df_topic_sents_keywords.reset_index()
+	df_dominant_topic.columns = [
+		"Document_No",
+		"Dominant_Topic",
+		"Topic_Perc_Contrib",
+		"Keywords",
+		"Text",
+	    ]
+	df_dominant_topic.head(10)
+
+	# the most representative sentence for each topic
+
+	# Get samples of sentences that most represent a given topic.
+	# Display setting to show more characters in column
+	pd.options.display.max_colwidth = 100
+
+	sent_topics_sorteddf_mallet = pd.DataFrame()
+	sent_topics_outdf_grpd = df_topic_sents_keywords.groupby("Dominant_Topic")
+
+	for i, grp in sent_topics_outdf_grpd:
+		sent_topics_sorteddf_mallet = pd.concat(
+		    [
+			sent_topics_sorteddf_mallet,
+			grp.sort_values(["Perc_Contribution"], ascending=False).head(1),
+		    ],
+		    axis=0,
+		)
+
+	# Reset Index
+	sent_topics_sorteddf_mallet.reset_index(drop=True, inplace=True)
+
+	# Format
+	sent_topics_sorteddf_mallet.columns = [
+		"Topic_Num",
+		"Topic_Perc_Contrib",
+		"Keywords",
+		"Representative Text",
+		]
+
+	# Show
+	sent_topics_sorteddf_mallet.head(10)
+
+	# a word cloud with the size of the words proportional to the weight
+	# 1. Wordcloud of Top N words in each topic
+
+	# from wordcloud import WordCloud, STOPWORDS
+
+	cols = [
+		color for name, color in mcolors.TABLEAU_COLORS.items()
+	    ]  # more colors: 'mcolors.XKCD_COLORS'
+
+	cloud = WordCloud(
+		stopwords=stop_words,
+		background_color="white",
+		width=2500,
+		height=1800,
+		max_words=10,
+		colormap="tab10",
+		color_func=lambda *args, **kwargs: cols[i],
+		prefer_horizontal=1.0,
+	    )
+
+	topics = lda_model.show_topics(formatted=False)	
+
+	fig, axes = plt.subplots(
+		1, int(numberof_topics), figsize=(10, 10), sharex=True, sharey=True
+	    )  # nrows, ncols
+
+	for i, ax in enumerate(axes.flatten()):
+		fig.add_subplot(ax)
+		topic_words = dict(topics[i][1])
+		cloud.generate_from_frequencies(topic_words, max_font_size=300)
+		plt.gca().imshow(cloud)
+		plt.gca().set_title("Topic " + str(i + 1), fontdict=dict(size=16))
+		plt.gca().axis("off")
+
+	plt.subplots_adjust(wspace=0, hspace=0)
+	plt.axis("off")
+	plt.margins(x=0, y=0)
+	plt.tight_layout()
+	plt.show()
+	st.pyplot(fig)
+
+	polarity = []
+	sentiment_sentence = []
+	subjectivity = []
+	original_sentence = []
+	token_sentiments = []
+
+	for sentence in df_1wk.content:
+		# st.write('sentence', sentence)
+		# st.write('df_1wk.content', df_1wk.content)
+		try:
+		    sentiment = TextBlob(sentence).sentiment
+		    # st.write('sentiment', sentiment)
+		    # token_sentiments = analyze_token_sentiment(sentence)
+		    # st.write('token_sentiments', token_sentiments)
+		    if sentiment.polarity > 0:
+			polarity.append(sentiment.polarity)
+			sentiment_sentence.append("Positive")
+			subjectivity.append(sentiment.subjectivity)
+			original_sentence.append(sentence)
+			# token_sentiments.append(token_sentiments)
+
+		    elif sentiment.polarity < 0:
+			polarity.append(sentiment.polarity)
+			sentiment_sentence.append("Negative")
+			subjectivity.append(sentiment.subjectivity)
+			original_sentence.append(sentence)
+			# token_sentiments.append(token_sentiments)
+
+		    else:
+			polarity.append(sentiment.polarity)
+			sentiment_sentence.append("Neutral")
+			subjectivity.append(sentiment.subjectivity)
+			original_sentence.append(sentence)
+			# token_sentiments.append(token_sentiments)
+
+		except:
+		    pass
+
+	sentiment_df_test = pd.DataFrame()
+	sentiment_df_test["polarity"] = polarity
+	sentiment_df_test["sentiment"] = sentiment_sentence
+	sentiment_df_test["original_sentence"] = original_sentence
+
+	# sentiment_df_test['subjectivity']=subjectivity
+	# sentiment_df_test['token_sentiments']=token_sentiments
+
+	sentiment_counts = sentiment_df_test.groupby(["sentiment"]).size()
+	st.write("Sentiment Counts:", sentiment_counts)
+
+	# visualize the sentiments
+	fig = plt.figure(figsize=(6, 6), dpi=100)
+	ax = plt.subplot(111)
+	sentiment_counts.plot.pie(
+	ax=ax, autopct="%1.1f%%", startangle=270, fontsize=12, label=""
 	)
+	st.pyplot(fig)
 
-if selection == "Option 1: General":
-	channel_num = "672466989767458861"
-elif selection == "Option 2: Intro":
-	channel_num = "684539869502111755"
-elif selection == "Option 3: Questions":
-	channel_num = "694844628586856469"
-	
-numberof_topics = st.number_input(
-	"Enter the number of topics (2 to 10):",
-	min_value=2,
-	max_value=10,
-	value=2,
-	step=1,
-	)
-
-def retrieve_messages1(channelid):
-	# payload={'page':2, 'count':100} # this with 'params=payload' doesn't work
-	r = requests.get(
-	    f"https://devops-server.aragon.org/discord/channel/messages?channelId={channelid}&limit=100"
-	)
-	jsonn = json.loads(r.text)
-	return jsonn
-
-def retrieve_messages2(channelid, messageid):
-	r = requests.get(
-	    f"https://devops-server.aragon.org/discord/channel/messages?channelId={channelid}&before={messageid}"
-	)
-	jsonn = json.loads(r.text)
-	return jsonn
-
-# NLTK Stop words
-# from nltk.corpus import stopwords
-
-stop_words = stopwords.words("english")
-stop_words.extend(
-        [
-            "you",
-            "me",
-            "guy",
-            "guys",
-            "im",
-            "us",
-            "someone",
-            "hi",
-            "hello",
-            "hey",
-            "thanks",
-            "thank",
-            "thx",
-            "yes",
-            "no",
-            "ohh",
-            "ha",
-            "what",
-            "would",
-            "might",
-            "could",
-            "maybe",
-            "may",
-            "theres",
-            "there",
-            "here",
-            "do",
-            "does",
-            "done",
-            "be",
-            "also",
-            "still",
-            "able",
-            "since",
-            "yet",
-            "it",
-            "many",
-            "some",
-            "rather",
-            "make",
-            "to",
-            "and",
-            "let",
-            "please",
-            "like",
-            "not",
-            "from",
-            "ever",
-            "try",
-            "trying",
-            "nice",
-            "think",
-            "thinking" "see",
-            "seeing",
-            "easy",
-            "easily",
-            "lot",
-            "use",
-            "using",
-            "go",
-            "going",
-            "say",
-            "said",
-            "set",
-            "want",
-            "seem",
-            "run",
-            "need",
-            "even",
-            "right",
-            "line",
-            "take",
-            "come",
-            "look",
-            "looking",
-            "prob",
-            "one",
-            "feel",
-            "way",
-            "sure",
-            "know",
-            "get",
-            "https",
-            "http",
-            "com",
-            "etc",
-            "daos",
-            "subject",
-        ]
-    )
-data = retrieve_messages1(channel_num)
-df = pd.DataFrame(data)
-df.sort_values("timestamp", ascending=False, inplace=True)
-df.timestamp = pd.to_datetime(df.timestamp)
-
-while len(df) < 1500:  # or use before/after timestamp
-        latestid = df.tail(1)["id"].values[0]
-        newdata = retrieve_messages2(channel_num, latestid)
-        df1 = pd.DataFrame(newdata)
-        df1.timestamp = pd.to_datetime(df1.timestamp)
-        df = pd.concat([df, df1])  # expand the database
-        df.sort_values("timestamp", ascending=False, inplace=True)
-latestdate = df.tail(1)["timestamp"].values[0]
-
-df = df.reset_index(drop=True)  # if not set to a variable it won't reset
-
-latestdate = pd.to_datetime(latestdate).date()
-earliestdate = latestdate + dt.timedelta(days=7)
-
-df["timestamp"] = df["timestamp"].dt.date
-start_date = pd.to_datetime(start_date_ofweek).date()
-end_date = pd.to_datetime(end_date_ofweek).date()
-one_week = (df["timestamp"] > start_date) & (df["timestamp"] <= end_date)
-df_1wk = df.loc[one_week]
-num_msgs = len(df_1wk)
-
-st.write("**Note: the earliest date available:", earliestdate)
-
-st.write("Start date:", start_date_ofweek)
-st.write("End date:", end_date_ofweek)
-st.write("Number of messages for the week:", len(df_1wk))
-
-st.write("Number of Topics:", int(numberof_topics))
-
-lemmatizer = WordNetLemmatizer()
-
-# Tokenize Sentences and Clean
-def sent_to_words(sentences):
-	for sent in sentences:
-            sent = re.sub("\S*@\S*\s?", "", sent)  # remove emails
-            sent = re.sub("\s+", " ", sent)  # remove newline chars
-            sent = re.sub("'", "", sent)  # remove single quotes
-            sent = gensim.utils.simple_preprocess(
-                str(sent), deacc=True
-            )  # split the sentence into a list of words. deacc=True option removes punctuations
-            sent = [lemmatizer.lemmatize(w) for w in sent]
-            yield (sent)
-
-# Convert to list
-data = df_1wk.content.values.tolist()
-data_words = list(sent_to_words(data))
-
-texts_out = [
-        [word for word in simple_preprocess(str(doc)) if word not in stop_words]
-        for doc in data_words
-    ]
-data_ready = texts_out
-
-original_sentences = []
-data_ready2 = []
-for i in range(len(data_ready)):
-	if len(data_ready[i]) > 3:
-            data_ready2.append(data_ready[i])
-            original_sentences.append(data_words[i])
-data_ready = data_ready2
-# build the topic model
-# To build the LDA topic model using LdaModel(), need the corpus and the dictionary.
-# Create Dictionary
-id2word = corpora.Dictionary(data_ready)
-
-# Create Corpus: Term Document Frequency
-corpus = [id2word.doc2bow(text) for text in data_ready]
-
-# Build LDA model
-lda_model = gensim.models.ldamodel.LdaModel(
-        corpus=corpus,
-        id2word=id2word,
-        num_topics=int(numberof_topics),
-        random_state=100,  # this serves as a seed (to repeat the training process)
-        update_every=1,  # update the model every update_every chunksize chunks (essentially, this is for memory consumption optimization)
-        chunksize=10,  # number of documents to consider at once (affects the memory consumption)
-        passes=10,  # how many times the algorithm is supposed to pass over the whole corpus
-        alpha="symmetric",  # `‘asymmetric’ and ‘auto’: the former uses a fixed normalized asymmetric 1.0/topicno prior, the latter learns an asymmetric prior directly from your data.
-        iterations=100,
-        per_word_topics=True,
-    )  # setting this to True allows for extraction of the most likely topics given a word.
-    # The training process is set in such a way that every word will be assigned to a topic. Otherwise, words that are not indicative are going to be omitted.
-    # phi_value is another parameter that steers this process - it is a threshold for a word treated as indicative or not.
-
-pprint(lda_model.print_topics())  # The trained topics (keywords and weights)
-
-def format_topics_sentences(ldamodel=None, corpus=corpus, texts=data):
-# Init output
-	sent_topics_df = pd.DataFrame()
-
-	# Get main topic in each document
-	for i, row_list in enumerate(ldamodel[corpus]):
-	    row = row_list[0] if ldamodel.per_word_topics else row_list
-	    # print(row)
-	    row = sorted(row, key=lambda x: (x[1]), reverse=True)
-	    # Get the Dominant topic, Perc Contribution and Keywords for each document
-	    for j, (topic_num, prop_topic) in enumerate(row):		
-	       if j == 0:  # => dominant topic
-                    wp = ldamodel.show_topic(topic_num)
-                    topic_keywords = ", ".join([word for word, prop in wp])
-                    sent_topics_df = sent_topics_df.append(
-                        pd.Series(
-                            [int(topic_num), round(prop_topic, 4), topic_keywords]
-                        ),
-                        ignore_index=True,
-                    )
-	       else:
-                    break
-	sent_topics_df.columns = [
-	    "Dominant_Topic",
-	    "Perc_Contribution",
-	    "Topic_Keywords",
-	]
-
-	# Add original text to the end of the output
-	contents = pd.Series(texts)
-	sent_topics_df = pd.concat([sent_topics_df, contents], axis=1)
-	return sent_topics_df
-
-df_topic_sents_keywords = format_topics_sentences(
-ldamodel=lda_model, corpus=corpus, texts=data_ready
-)
-
-# Format
-df_dominant_topic = df_topic_sents_keywords.reset_index()
-df_dominant_topic.columns = [
-        "Document_No",
-        "Dominant_Topic",
-        "Topic_Perc_Contrib",
-        "Keywords",
-        "Text",
-    ]
-df_dominant_topic.head(10)
-
-# the most representative sentence for each topic
-
-# Get samples of sentences that most represent a given topic.
-# Display setting to show more characters in column
-pd.options.display.max_colwidth = 100
-
-sent_topics_sorteddf_mallet = pd.DataFrame()
-sent_topics_outdf_grpd = df_topic_sents_keywords.groupby("Dominant_Topic")
-
-for i, grp in sent_topics_outdf_grpd:
-        sent_topics_sorteddf_mallet = pd.concat(
-            [
-                sent_topics_sorteddf_mallet,
-                grp.sort_values(["Perc_Contribution"], ascending=False).head(1),
-            ],
-            axis=0,
-        )
-
-# Reset Index
-sent_topics_sorteddf_mallet.reset_index(drop=True, inplace=True)
-
-# Format
-sent_topics_sorteddf_mallet.columns = [
-	"Topic_Num",
-	"Topic_Perc_Contrib",
-	"Keywords",
-	"Representative Text",
-	]
-
-# Show
-sent_topics_sorteddf_mallet.head(10)
-
-# a word cloud with the size of the words proportional to the weight
-# 1. Wordcloud of Top N words in each topic
-
-# from wordcloud import WordCloud, STOPWORDS
-
-cols = [
-        color for name, color in mcolors.TABLEAU_COLORS.items()
-    ]  # more colors: 'mcolors.XKCD_COLORS'
-
-cloud = WordCloud(
-        stopwords=stop_words,
-        background_color="white",
-        width=2500,
-        height=1800,
-        max_words=10,
-        colormap="tab10",
-        color_func=lambda *args, **kwargs: cols[i],
-        prefer_horizontal=1.0,
-    )
-
-topics = lda_model.show_topics(formatted=False)	
-    
-fig, axes = plt.subplots(
-        1, int(numberof_topics), figsize=(10, 10), sharex=True, sharey=True
-    )  # nrows, ncols
-
-for i, ax in enumerate(axes.flatten()):
-        fig.add_subplot(ax)
-        topic_words = dict(topics[i][1])
-        cloud.generate_from_frequencies(topic_words, max_font_size=300)
-        plt.gca().imshow(cloud)
-        plt.gca().set_title("Topic " + str(i + 1), fontdict=dict(size=16))
-        plt.gca().axis("off")
-
-plt.subplots_adjust(wspace=0, hspace=0)
-plt.axis("off")
-plt.margins(x=0, y=0)
-plt.tight_layout()
-plt.show()
-st.pyplot(fig)
-
-polarity = []
-sentiment_sentence = []
-subjectivity = []
-original_sentence = []
-token_sentiments = []
-
-for sentence in df_1wk.content:
-        # st.write('sentence', sentence)
-        # st.write('df_1wk.content', df_1wk.content)
-        try:
-            sentiment = TextBlob(sentence).sentiment
-            # st.write('sentiment', sentiment)
-            # token_sentiments = analyze_token_sentiment(sentence)
-            # st.write('token_sentiments', token_sentiments)
-            if sentiment.polarity > 0:
-                polarity.append(sentiment.polarity)
-                sentiment_sentence.append("Positive")
-                subjectivity.append(sentiment.subjectivity)
-                original_sentence.append(sentence)
-                # token_sentiments.append(token_sentiments)
-
-            elif sentiment.polarity < 0:
-                polarity.append(sentiment.polarity)
-                sentiment_sentence.append("Negative")
-                subjectivity.append(sentiment.subjectivity)
-                original_sentence.append(sentence)
-                # token_sentiments.append(token_sentiments)
-
-            else:
-                polarity.append(sentiment.polarity)
-                sentiment_sentence.append("Neutral")
-                subjectivity.append(sentiment.subjectivity)
-                original_sentence.append(sentence)
-                # token_sentiments.append(token_sentiments)
-
-        except:
-            pass
-
-sentiment_df_test = pd.DataFrame()
-sentiment_df_test["polarity"] = polarity
-sentiment_df_test["sentiment"] = sentiment_sentence
-sentiment_df_test["original_sentence"] = original_sentence
-
-# sentiment_df_test['subjectivity']=subjectivity
-# sentiment_df_test['token_sentiments']=token_sentiments
-
-sentiment_counts = sentiment_df_test.groupby(["sentiment"]).size()
-st.write("Sentiment Counts:", sentiment_counts)
-
-# visualize the sentiments
-fig = plt.figure(figsize=(6, 6), dpi=100)
-ax = plt.subplot(111)
-sentiment_counts.plot.pie(
-ax=ax, autopct="%1.1f%%", startangle=270, fontsize=12, label=""
-)
-st.pyplot(fig)
-
-# st.write('Sentiment for the Actual Messages:', sentiment_df_test[['sentiment','original_sentence']])
-st.write("Actual Messages:", df_1wk["content"])	
+	# st.write('Sentiment for the Actual Messages:', sentiment_df_test[['sentiment','original_sentence']])
+	st.write("Actual Messages:", df_1wk["content"])	
 
 with st.sidebar:
 #     st.write("Choose the time period")
