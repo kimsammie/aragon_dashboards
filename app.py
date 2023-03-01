@@ -769,11 +769,14 @@ with tab8:
 
   original_sentences = []
   data_ready2 = []
+
   for i in range(len(data_ready)):
-	if len(data_ready[i]) > 3:
-	    data_ready2.append(data_ready[i])
-	    original_sentences.append(data_words[i])
+        if len(data_ready[i]) > 3:
+            data_ready2.append(data_ready[i])
+            original_sentences.append(data_words[i])
+  
   data_ready = data_ready2
+
   # build the topic model
   # To build the LDA topic model using LdaModel(), need the corpus and the dictionary.
   # Create Dictionary
