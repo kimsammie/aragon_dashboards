@@ -599,22 +599,22 @@ with tab8:
 		)
 
   def retrieve_messages1(channelid):
-	# payload={'page':2, 'count':100} # this with 'params=payload' doesn't work
-	r = requests.get(
-	    f"https://devops-server.aragon.org/discord/channel/messages?channelId={channelid}&limit=100"
-	)
-	jsonn = json.loads(r.text)
-	return jsonn
+        # payload={'page':2, 'count':100} # this with 'params=payload' doesn't work
+        r = requests.get(
+            f"https://devops-server.aragon.org/discord/channel/messages?channelId={channelid}&limit=100"
+        )
+        jsonn = json.loads(r.text)
+        return jsonn
 
   def retrieve_messages2(channelid, messageid):
-	r = requests.get(
-	    f"https://devops-server.aragon.org/discord/channel/messages?channelId={channelid}&before={messageid}"
-	)
-	jsonn = json.loads(r.text)
-	return jsonn
+        r = requests.get(
+            f"https://devops-server.aragon.org/discord/channel/messages?channelId={channelid}&before={messageid}"
+        )
+        jsonn = json.loads(r.text)
+        return jsonn
 
-	# NLTK Stop words
-	# from nltk.corpus import stopwords
+        # NLTK Stop words
+        # from nltk.corpus import stopwords
 
   stop_words = stopwords.words("english")
   stop_words.extend(
