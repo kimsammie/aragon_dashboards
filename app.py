@@ -576,7 +576,7 @@ with tab8:
 
   new_title = '<p style="font-family:sans-serif; color:Red; font-size: 42px;">**ERROR: Please choose the end date greater than the start date**</p>'
   if start_date_ofweek > end_date_ofweek:
-		st.markdown(new_title, unsafe_allow_html=True)
+	st.markdown(new_title, unsafe_allow_html=True)
 
   selection = st.selectbox(
 		"Choose the Discord channel",
