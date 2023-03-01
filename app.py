@@ -561,34 +561,27 @@ with tab8:
 	At the bottom, please also check out the overall sentiment found in the messages for the chosen time period. 
 	
 	""")
-#   st.write('Select the sources of your financial data:')
-#   option_1 = st.checkbox('Gnosis')
-#   if option_1:
-#     text_input1 = st.text_input(
-#     "Enter the wallet address 👇"
-
-#     )
 
 # creating two functions as discord seems to take only one request i.e., either limit or before/after message id
 # below is authorization from my discord login
 
 # st.sidebar.write('Choose a week')
 start_date_ofweek = st.date_input(
-"Enter the start date (e.g., 2022/02/21)",
-value=dt.datetime.now() - dt.timedelta(days=7),
-)  # datetime.date format
+	"Enter the start date (e.g., 2022/02/21)",
+	value=dt.datetime.now() - dt.timedelta(days=7),
+	)  # datetime.date format
 end_date_ofweek = st.date_input(
-"Enter the end date (e.g., 2022/02/28)", value=dt.datetime.now()
-)
+	"Enter the end date (e.g., 2022/02/28)", value=dt.datetime.now()
+	)
 
 new_title = '<p style="font-family:sans-serif; color:Red; font-size: 42px;">**ERROR: Please choose the end date greater than the start date**</p>'
 if start_date_ofweek > end_date_ofweek:
 	st.markdown(new_title, unsafe_allow_html=True)
 	
 selection = st.selectbox(
-"Choose the Discord channel",
-["Option 1: General", "Option 2: Intro", "Option 3: Questions"],
-)
+	"Choose the Discord channel",
+	["Option 1: General", "Option 2: Intro", "Option 3: Questions"],
+	)
 
 if selection == "Option 1: General":
 	channel_num = "672466989767458861"
@@ -752,7 +745,7 @@ st.write("Number of Topics:", int(numberof_topics))
 
 lemmatizer = WordNetLemmatizer()
 
-    # Tokenize Sentences and Clean
+# Tokenize Sentences and Clean
 def sent_to_words(sentences):
 	for sent in sentences:
             sent = re.sub("\S*@\S*\s?", "", sent)  # remove emails
